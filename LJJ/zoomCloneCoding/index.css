@@ -1,3 +1,6 @@
+@import './components/PeopleCam/peopleCam.css';
+@import './components//Button//button.css';
+
 body,
 html {
     height: 100%;
@@ -33,21 +36,6 @@ html {
     max-width: 1200px;
 }
 
-.people-cam {
-    background-color: #333;
-    border: 1px solid #444;
-    border-radius: 8px;
-    width: 100%;
-    min-width: 150px;
-    min-height: 80px;
-}
-
-.people-cam > img {
-    min-width: 150px;
-    min-width: 80px;
-    object-fit: contain;
-}
-
 .main-video {
     flex-grow: 1;
     background-color: #333;
@@ -71,17 +59,4 @@ html {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-}
-
-button {
-    background-color: #1c1c1c;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #444;
 }
