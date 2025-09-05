@@ -1,0 +1,101 @@
+*{
+    border: 0 solid;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+body{
+    font-size: 13px;
+    color:#fff;
+    line-height: 1.7rem;
+    background-color:#131619; 
+}
+main {
+    overflow-x: hidden;
+    min-width: 1340px;
+    padding-bottom: 67px;
+}
+header{
+    height: 50px; 
+    background-color:#2a2b2d; 
+    background-image: url("img/1-1.png"); 
+    background-size: auto 50px;
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+header div:nth-child(1){
+    float:left;
+    width:200px;
+    padding:10px 0 0 10px;
+}
+header div:nth-child(3){
+    float:right; 
+    width:638px; height:50px;
+    background-image: url("img/1-2.png"); 
+    background-size: auto 50px;
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+.member_list{height:110px; 
+    background-color:#131619; 
+    background-image: url("img/2.png"); 
+    background-size: auto 110px;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+section{
+    height:500px; 
+    background-color:#131619; 
+    background-image: url("img/3.png"); 
+    background-size: auto 500px;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+aside{float:right; width:100px; height: auto; color:#000;}
+
+footer{
+    position: fixed; 
+    bottom:0; 
+    width: 100%; 
+    height:67px;
+    /* background-image: url("img/4-2.png"); 
+    background-size: auto 50px;
+    background-position: center top;
+    background-repeat: no-repeat; */
+    /* background-color:#000000;  */
+}
+nav{width: 60%; 
+    margin:0 auto;
+    /* background-color:red; */
+}
+nav ul li{
+    width:120px; 
+    height:73px;
+}
+footer div:nth-child(1){
+    position: fixed; 
+    left:0;
+    bottom:0;
+    width:200px; 
+    height:67px;
+    background-color:rgb(15, 149, 211);
+    /* background-image: url("img/4-1.png"); 
+    background-size: auto 50px;
+    background-position: left top;
+    background-repeat: no-repeat; */
+}
+
+footer div:nth-child(2){
+    position: fixed; 
+    right:0;
+    width:200px; 
+    height:67px;
+    text-align: right;
+    background-color:rgb(98, 0, 255);
+    /* background-image: url("img/4-3.png"); 
+    background-size: auto 50px;
+    background-position: right top;
+    background-repeat: no-repeat; */
+}
