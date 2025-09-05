@@ -1,7 +1,14 @@
-export default function Button(text, onClick, className = 'custom-button') {
-    const button = document.createElement('button');
-    button.className = className;
-    button.textContent = text;
-    button.onclick = onClick;
-    return button;
+import Component from '../../core/Component.js';
+export default class Button extends Component {
+    template() {
+        const { text } = this.props;
+        return `<button class="custom-button">${text}</button>`;
+    }
+
+    setEvent() {
+        const { onClick } = this.props;
+        this.addEvent('click', 'button', (event) => {
+            onClick(event);
+        });
+    }
 }

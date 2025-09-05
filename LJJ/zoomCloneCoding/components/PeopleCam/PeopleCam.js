@@ -1,19 +1,23 @@
-export default function PeopleCam(name, image) {
-    const peopleCam = document.createElement('div');
-    peopleCam.className = 'people-cam';
+import Component from '../../core/Component.js';
 
-    const camImg = document.createElement('img');
-    camImg.className = 'cam-img';
-    camImg.src = image;
-    camImg.alt = name + '의 카메라 화면';
-    camImg.width = 150;
-    camImg.height = 80;
+export default class PeopleCam extends Component {
+    template() {
+        const { id, name, img } = this.props;
+        return `
+            <div class="people-cam">
+                <img class="cam-img" src="${img}" alt="${name}" width=150 height=80>
+                <span class="cam-name">${name}</span>
+            </div>
+        `;
+    }
 
-    const camName = document.createElement('div');
-    camName.className = 'cam-name';
-    camName.textContent = name;
-    peopleCam.appendChild(camImg);
-    peopleCam.appendChild(camName);
-
-    return peopleCam;
+    setEvent() {
+        const { onClick } = this.props;
+        if (onClick) {
+            this.addEvent('click', '.people-cam', () => {
+                console.log('PeopleCam Clicked!', this.props.name);
+                onClick({ id: this.props.id, name: this.props.name, img: this.props.img });
+            });
+        }
+    }
 }

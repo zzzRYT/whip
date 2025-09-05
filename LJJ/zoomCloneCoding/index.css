@@ -1,12 +1,14 @@
 @import './components/PeopleCam/peopleCam.css';
-@import './components//Button//button.css';
+@import './components/Button/button.css';
+@import './components/MainContent/mainContent.css';
+@import './components/MainCam/mainCam.css';
 
 body,
 html {
     height: 100%;
     margin: 0;
     font-family: sans-serif;
-    background-color: hsl(0, 0%, 16%);
+    background-color: #1c1c1c;
     color: white;
 }
 
@@ -18,36 +20,7 @@ html {
 
 .header {
     padding: 5px 2rem;
-    background-color: #1c1c1c;
-}
-
-.main-content {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-}
-
-.video-grid {
-    display: flex;
-    gap: 1px;
-    width: 100%;
-    max-width: 1200px;
-}
-
-.main-video {
-    flex-grow: 1;
-    background-color: #333;
-    border: 1px solid #444;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 800px;
-    min-height: 400px;
-}
-
-.main-video > img {
-    object-fit: contain;
+    background-color: hsl(0, 0%, 16%);
 }
 
 .footer {
