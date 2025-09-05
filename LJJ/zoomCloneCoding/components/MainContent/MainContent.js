@@ -14,7 +14,7 @@ export default class MainContent extends Component {
             { id: 5, name: '이주연', img: './assets/user-9801874_1280.png' },
             { id: 6, name: '김미소', img: './assets/user-9801862_1280.png' },
         ];
-        this.state = { people };
+        this.state = { main: people[0], people };
     }
 
     template() {
@@ -25,12 +25,12 @@ export default class MainContent extends Component {
     }
 
     didMount() {
-        const { people } = this.state;
+        const { people, main } = this.state;
         const mainCamContainer = this.$target.querySelector('.main-cam-container');
         const videoGrid = this.$target.querySelector('.video-grid');
 
         if (!this.mainCamInstance) {
-            this.mainCamInstance = new MainCam(mainCamContainer, { initialPerson: people[0] });
+            this.mainCamInstance = new MainCam(mainCamContainer, { initialPerson: main });
         }
 
         videoGrid.innerHTML = '';
@@ -40,7 +40,6 @@ export default class MainContent extends Component {
             new PeopleCam(camContainer, {
                 ...person,
                 onClick: (clickedPerson) => {
-                    console.log('MainContent received click. Person:', clickedPerson.name);
                     this.mainCamInstance.setPerson(clickedPerson);
                 },
             });

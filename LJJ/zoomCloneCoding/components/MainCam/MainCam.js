@@ -2,14 +2,14 @@ import Component from '../../core/Component.js';
 
 export default class MainCam extends Component {
     setup() {
-        this.state = this.props.initialPerson;
+        this.state = { person: this.props.initialPerson };
     }
 
     template() {
         if (!this.state) {
             return `<div></div>`;
         }
-        const { name, img } = this.state;
+        const { name, img } = this.state.person;
         console.log('MainCam rendering with:', name);
         return `
             <div class="main-cam">
@@ -20,7 +20,7 @@ export default class MainCam extends Component {
     }
 
     setPerson(person) {
-        console.log('MainCam setPerson called with:', person.name);
-        this.setState(person);
+        let { main } = this.props;
+        this.setState({ main: person });
     }
 }
