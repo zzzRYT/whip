@@ -3,8 +3,6 @@ import PeopleCam from '../PeopleCam/PeopleCam.js';
 import MainCam from '../MainCam/MainCam.js';
 
 export default class MainContent extends Component {
-    mainCamInstance = null;
-
     setup() {
         const people = [
             { id: 1, name: '이재진', img: './assets/user-9801862_1280.png' },
@@ -29,9 +27,7 @@ export default class MainContent extends Component {
         const mainCamContainer = this.$target.querySelector('.main-cam-container');
         const videoGrid = this.$target.querySelector('.video-grid');
 
-        if (!this.mainCamInstance) {
-            this.mainCamInstance = new MainCam(mainCamContainer, { initialPerson: main });
-        }
+        new MainCam(mainCamContainer, { person: main });
 
         videoGrid.innerHTML = '';
         people.forEach((person) => {
@@ -40,7 +36,7 @@ export default class MainContent extends Component {
             new PeopleCam(camContainer, {
                 ...person,
                 onClick: (clickedPerson) => {
-                    this.mainCamInstance.setPerson(clickedPerson);
+                    this.setState({ main: clickedPerson });
                 },
             });
         });

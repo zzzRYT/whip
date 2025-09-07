@@ -5,8 +5,6 @@ const mainContentContainer = document.querySelector('.main-content');
 mainContentContainer.innerHTML = '';
 new MainContent(mainContentContainer);
 
-console.log('mainContentContainer:', mainContentContainer);
-
 const navigate = document.querySelector('.controls');
 
 const navigateLists = [
