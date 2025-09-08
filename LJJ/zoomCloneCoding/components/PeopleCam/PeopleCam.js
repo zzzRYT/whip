@@ -12,11 +12,10 @@ export default class PeopleCam extends Component {
     }
 
     setEvent() {
-        const { onClick } = this.props;
-        if (onClick) {
-            this.addEvent('click', '.people-cam', () => {
-                console.log('PeopleCam Clicked!', this.props.name);
-                onClick({ id: this.props.id, name: this.props.name, img: this.props.img });
+        const { setState } = this.props;
+        if (setState) {
+            this.addEvent('dblclick', '.people-cam', () => {
+                setState({ main: { id: this.props.id, name: this.props.name, img: this.props.img } });
             });
         }
     }

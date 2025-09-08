@@ -1,0 +1,24 @@
+@charset "UTF-8";
+#wrap {color: #ffffff;}
+#wrap .header {background-color: #2a2b2d;}
+#wrap .header .inner {display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;}
+
+#wrap .header .inner .box {display: flex; align-items: center;}
+#wrap .header .inner .box .logo_box {display: flex; align-items: center;}
+#wrap .header .inner .box .logo_box .logo {font-weight: 700; font-size: 14px;}
+
+#wrap .header .inner .box .meet_box {position: relative; margin: 0 0 0 20px; padding: 0 0 0 10px;}
+#wrap .header .inner .box .meet_box::before {content: ''; position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 1px; height: 20px; background-color: #fff; opacity: 0.2;}
+#wrap .header .inner .box .meet_box .list {display: flex; column-gap: 10px;}
+#wrap .header .inner .box .meet_box .list li {width: 200px; padding: 5px 10px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+#wrap .header .inner .box .meet_box .list li:hover,
+#wrap .header .inner .box .meet_box .list li.active {background-color: #121619; border-radius: 5px;}
+#wrap .header .inner .box .meet_box .list li .room {font-size: 14px; line-height: 21px;}
+
+#wrap .header .inner .close_box .close {padding: 2px 10px; font-weight: 700; font-size: 16px; color: #fff;}
+
+#wrap .cont {background-color: #121619;}
+#wrap .cont .inner {padding: 20px 10px;}
+#wrap .cont .inner .box {border: 2px solid #ccc; font-size: 40px; height: 700PX;}
+
+#wrap .footer {padding: 10px 50px; background-color: #000000;}
