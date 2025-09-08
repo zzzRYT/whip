@@ -67,7 +67,58 @@
   display: inline-block;
 }
 
+/* content 레이아웃 */
+.content {
+  display: grid;
+  grid-template-columns: 1fr; /* 패널 닫힘 */
+  min-height: calc(100vh - 64px);
+}
+.app--panel-open .content {
+  grid-template-columns: 1fr 320px;
+}
+
+/* 사이드 패널 */
+.side-panel {
+  background: #111111;
+  display: none;
+  padding: 8px;
+}
+.app--panel-open .side-panel {
+  display: block;
+}
+
+/* 사이드 내부 */
+.side-panel__sections {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #111;
+}
+.side-panel__section {
+  display: none;
+  border-radius: 10px;
+  background: #fff;
+  overflow: auto;
+}
+.side-panel__section.is-open {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-panel--split .side-panel__sections {
+  gap: 8px;
+}
+.side-panel--single .side-panel__section.is-open {
+  flex: 1 1 100%;
+}
+.side-panel--split .side-panel__section.is-open {
+  flex: 1 1 50%;
+}
+
 /* 네비게이션 영역 */
+.app--panel-open .toolbar {
+  width: calc(100% - 320px);
+}
 .toolbar {
   position: fixed;
   bottom: 0;
@@ -76,7 +127,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
+  padding: 10px 10px;
   background: #1a1a1a;
   transform: translateY(100%);
   transition: transform 0.2s ease;
@@ -87,7 +138,6 @@
 
 .toolbar__group {
   display: flex;
-  gap: 8px;
 }
 
 .toolbar__group--center {
@@ -98,7 +148,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 6px;
-  padding: 6px 25px;
+  padding: 5px 16px;
 }
 .toolbar__btn:hover {
   background-color: rgba(255, 255, 255, 0.1);

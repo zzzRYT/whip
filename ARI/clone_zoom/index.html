@@ -14,57 +14,52 @@
     </header>
 
     <!-- main -->
-    <main class="meeting" role="main">
-      <section class="video-grid" aria-label="참가자 영상 목록">
-        <div class="participant participant--self" aria-label="참가자 본인">
-          <div class="participant__media">
-            <img class="participant__video" src="" alt="" />
+    <div class="content">
+      <main class="meeting" role="main">
+        <section class="video-grid" aria-label="참가자 영상 목록">
+          <div class="participant participant--self" aria-label="참가자 본인">
+            <div class="participant__media">
+              <img class="participant__video" src="" alt="" />
+            </div>
+            <div class="participant__meta">
+              <img
+                class="icon-mic-off"
+                src="./assets/icons/icon-mic-off.svg"
+                alt="마이크 꺼짐"
+              />
+              <span class="participant__name">최아로인</span>
+            </div>
           </div>
-          <div class="participant__meta">
-            <img
-              class="icon-mic-off"
-              src="./assets/icons/icon-mic-off.svg"
-              alt="마이크 꺼짐"
-            />
-            <span class="participant__name">최아로인</span>
-          </div>
-        </div>
 
-        <div class="participant" aria-label="참가자">
-          <div class="participant__media">
-            <img class="participant__video" src="" alt="" />
+          <div class="participant" aria-label="참가자">
+            <div class="participant__media">
+              <img class="participant__video" src="" alt="" />
+            </div>
+            <div class="participant__meta">
+              <span class="participant__name">홍길동</span>
+            </div>
           </div>
-          <div class="participant__meta">
-            <span class="participant__name">홍길동</span>
-          </div>
-        </div>
+        </section>
+      </main>
 
-        <div class="participant" aria-label="참가자">
-          <div class="participant__media">
-            <img class="participant__video" src="" alt="" />
-          </div>
-          <div class="participant__meta">
-            <span class="participant__name">홍길동</span>
-          </div>
+      <!-- aside -->
+      <aside class="side-panel" aria-hidden="true">
+        <div class="side-panel__sections">
+          <section
+            class="side-panel__section side-panel__section--participants"
+            aria-label="참가자"
+          >
+            <div class="">참가자 영역</div>
+          </section>
+          <section
+            class="side-panel__section side-panel__section--chat"
+            aria-label="채팅"
+          >
+            <div class="">채팅 영역</div>
+          </section>
         </div>
-        <div class="participant" aria-label="참가자">
-          <div class="participant__media">
-            <img class="participant__video" src="" alt="" />
-          </div>
-          <div class="participant__meta">
-            <span class="participant__name">홍길동</span>
-          </div>
-        </div>
-        <div class="participant" aria-label="참가자">
-          <div class="participant__media">
-            <img class="participant__video" src="" alt="" />
-          </div>
-          <div class="participant__meta">
-            <span class="participant__name">홍길동</span>
-          </div>
-        </div>
-      </section>
-    </main>
+      </aside>
+    </div>
 
     <!-- nav -->
     <nav class="toolbar" aria-label="통합 컨트롤">
@@ -80,10 +75,18 @@
       </div>
 
       <div class="toolbar__group toolbar__group--center">
-        <button class="toolbar__btn" aria-label="참가자">
+        <button
+          class="toolbar__btn btn-participants"
+          aria-pressed="false"
+          aria-label="참가자"
+        >
           <span>참가자</span>
         </button>
-        <button class="toolbar__btn" aria-label="채팅">
+        <button
+          class="toolbar__btn btn-chat"
+          aria-pressed="false"
+          aria-label="채팅"
+        >
           <span>채팅</span>
         </button>
         <button class="toolbar__btn" aria-label="반응">
