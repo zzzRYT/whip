@@ -4,82 +4,129 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+    overflow: hidden;
 }
 body{
-    font-size: 13px;
+    height:100vh;
+    width: 100vw;
+    font-size: 16px;
     color:#fff;
+    background-color: #000000;
     line-height: 1.7rem;
-    background-color:#131619; 
 }
-main {
-    overflow-x: hidden;
-    min-width: 1340px;
-    padding-bottom: 67px;
-}
+
+.wrap{position: relative;}
+
+
 header{
-    height: 50px; 
+    position: relative;
+    height: 65px; 
     background-color:#2a2b2d; 
+}
+/* 로고 */
+header div:nth-child(1){
+    position: absolute;
+    left:10px; 
+    top:15px;
+    width:200px;
+}
+
+/* 탭 */
+header div:nth-child(2){
+    height:65px;
     background-image: url("img/1-1.png"); 
-    background-size: auto 50px;
     background-position: left top;
     background-repeat: no-repeat;
 }
-header div:nth-child(1){
-    float:left;
-    width:200px;
-    padding:10px 0 0 10px;
-}
+
+
+/* 로그인 */
 header div:nth-child(3){
-    float:right; 
-    width:638px; height:50px;
+    position: absolute;
+    top:5px;
+    right: 0;
+    width:638px; 
+    height:65px;
+    background-color: #2a2b2d;
     background-image: url("img/1-2.png"); 
-    background-size: auto 50px;
     background-position: right top;
     background-repeat: no-repeat;
 }
-.member_list{height:110px; 
+
+.container{
+    position: relative;
+    height: calc(100vh - 65px);
+    width: 100vw;
+}
+
+main {
+    width: calc(100% - 300px);
+    height: 100%;
+}
+
+/* 멤버목록 */
+.member_list{
+    width:100%;
+    height:110px; 
     background-color:#131619; 
     background-image: url("img/2.png"); 
     background-size: auto 110px;
     background-position: center top;
     background-repeat: no-repeat;
 }
+
+/* 큰화면 */
 section{
-    height:500px; 
+    /* width: 100%; */
+    height: calc(100vh - 110px);
     background-color:#131619; 
     background-image: url("img/3.png"); 
-    background-size: auto 500px;
+    background-size: 70vh;
     background-position: center top;
     background-repeat: no-repeat;
 }
 
-aside{float:right; width:100px; height: auto; color:#000;}
+/* chat */
+aside{
+    position: absolute;
+    right: 0;
+    width: 300px; 
+    height: calc(100vh - 73px  - 65px);
+    background-color:#ffffff;
+    border:1px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    color: #000000;
+}
 
+/* 하단메뉴 */
 footer{
-    position: fixed; 
+    position: fixed;
     bottom:0; 
     width: 100%; 
-    height:67px;
-    /* background-image: url("img/4-2.png"); 
-    background-size: auto 50px;
-    background-position: center top;
-    background-repeat: no-repeat; */
-    /* background-color:#000000;  */
+    height:70px;
 }
-nav{width: 60%; 
-    margin:0 auto;
-    /* background-color:red; */
+
+nav{position: relative;
+    left:300px;
+    width: calc(100% - 450px);
+    height:inherit;
+    background-color:rgb(133, 30, 158);
 }
+
 nav ul li{
-    width:120px; 
+    display: inline-block;
+    width:100px; 
     height:73px;
-}
-footer div:nth-child(1){
-    position: fixed; 
+    text-align: center;
+    line-height: 40px;
+    margin-right: 8px;
+  }
+
+footer .left{
+    position: absolute; 
     left:0;
-    bottom:0;
-    width:200px; 
-    height:67px;
+    width:300px; 
+    height:inherit;
     background-color:rgb(15, 149, 211);
     /* background-image: url("img/4-1.png"); 
     background-size: auto 50px;
@@ -87,12 +134,12 @@ footer div:nth-child(1){
     background-repeat: no-repeat; */
 }
 
-footer div:nth-child(2){
-    position: fixed; 
+footer .right{
+    position: absolute; 
     right:0;
-    width:200px; 
-    height:67px;
-    text-align: right;
+    width:150px; 
+    height:inherit ;
+    text-align: right; 
     background-color:rgb(98, 0, 255);
     /* background-image: url("img/4-3.png"); 
     background-size: auto 50px;

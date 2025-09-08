@@ -35,9 +35,7 @@ export default class MainContent extends Component {
             videoGrid.appendChild(camContainer);
             new PeopleCam(camContainer, {
                 ...person,
-                onClick: (clickedPerson) => {
-                    this.setState({ main: clickedPerson });
-                },
+                setState: this.setState.bind(this),
             });
         });
     }
