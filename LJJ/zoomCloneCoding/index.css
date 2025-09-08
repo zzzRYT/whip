@@ -1,7 +1,8 @@
 @import './components/PeopleCam/peopleCam.css';
-@import './components/Button/button.css';
 @import './components/MainContent/mainContent.css';
 @import './components/MainCam/mainCam.css';
+@import './components/Footer/footer.css';
+@import './components/Footer/button.css';
 
 body,
 html {
@@ -21,15 +22,4 @@ html {
 .header {
     padding: 5px 2rem;
     background-color: hsl(0, 0%, 16%);
-}
-
-.footer {
-    padding: 1rem;
-    background-color: #1c1c1c;
-}
-
-.controls {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
 }

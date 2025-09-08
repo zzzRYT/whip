@@ -6,11 +6,10 @@ export default class MainCam extends Component {
         if (!person) {
             return `<div></div>`;
         }
-        const { name, img } = person;
         return `
             <div class="main-cam">
-                <img src="${img}" alt="${name}" style="width:100%; height:100%; object-fit: cover;">
-                <span class="main-cam-name">${name}</span>
+                <img src="${person.img}" alt="${person.name}" style="width:100%; height:100%; object-fit: cover;">
+                <span class="main-cam-name">${person.name}</span>
             </div>
         `;
     }
