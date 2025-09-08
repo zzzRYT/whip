@@ -7,53 +7,63 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <header>
-        <div aria-label="logo"><img src="./img/logo.png"></div>
-        <div aria-label="tab_menu"></div>
-        <div aria-label="login"></div>
-    </header>
+    <div class="wrap">
+        <header>
+            <div aria-label="logo"><img src="./img/logo.png"></div>
+            <div aria-label="tab_menu"></div>
+            <div aria-label="login"></div>
+        </header>
         
-    <main>
-        <div class="member_list">
-            <ul>
-                <li>참석자</li>
-                <li>참석자</li>
-                <li>참석자</li>
-                <li>참석자</li>
-                <li>참석자</li>
-            </ul>
-            <div>next</div>
-        </div>
-        <section aria-label="screen"></section>
-    </main>
+        <div class="container">
 
-    <aside aria-label="chat"></aside>
-    
-    <footer>
-        <div>
-            <ul>
-                <li>오디오</li>
-                <li>비디오</li>
-            </ul>
+            <!-- 소스순서 -->
+            <aside aria-label="chat">채팅</aside>
+
+            <main>
+                <div class="member_list">
+                    <!-- <ul>
+                        <li>참석자</li>
+                    </ul>
+                    <div>next</div> -->
+                </div>
+
+                <section aria-label="screen"></section>
+
+                <footer>
+
+                    <!-- 네비코딩위치 -->
+                    <nav> 
+                        <ul>
+                            <li>네비게이션</li>
+                            <li>참가자</li>
+                            <li>반응</li>
+                            <li>공유</li>
+                            <li>채팅</li>
+                            <li>회의정보</li>
+                            <li>앱</li>
+                            <li>소회의실 참가</li>
+                            <li>더 보기</li>
+                        </ul>
+                    </nav>
+
+                    <div class="left">
+                        <ul>
+                            <li>오디오</li>
+                            <li>비디오</li>
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <ul>
+                            <li>나가기</li>
+                        </ul>
+                    </div>
+
+                   
+                </footer>
+            </main>
+
         </div>
-        <div>
-            <ul>
-                <li>나가기</li>
-            </ul>
-        </div>
-        <nav>
-            <ul>
-                <li>네비게이션</li>
-                <li>참가자</li>
-                <li>반응</li>
-                <li>공유</li>
-                <li>채팅</li>
-                <li>회의정보</li>
-                <li>앱</li>
-                <li>소회의실 참가</li>
-                <li>더 보기</li>
-            </ul>
-        </nav>
-    <footer>
+        
+    </div>
 </body>
 </html>
