@@ -3,23 +3,34 @@
 @import './components/MainCam/mainCam.css';
 @import './components/Footer/footer.css';
 @import './components/Footer/button.css';
+@import './components/SideItem/sideItem.css';
 
 body,
 html {
-    height: 100%;
-    margin: 0;
-    font-family: sans-serif;
-    background-color: #1c1c1c;
-    color: white;
+  height: 100%;
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #1c1c1c;
+  color: white;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-grow: 1;
 }
 
 .header {
-    padding: 5px 2rem;
-    background-color: hsl(0, 0%, 16%);
+  padding: 5px 2rem;
+  background-color: hsl(0, 0%, 16%);
+}
+
+.footer-container {
+  position: relative;
 }
