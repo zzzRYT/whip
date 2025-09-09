@@ -19,7 +19,16 @@
         <section class="video-grid" aria-label="참가자 영상 목록">
           <div class="participant participant--self" aria-label="참가자 본인">
             <div class="participant__media">
-              <img class="participant__video" src="" alt="" />
+              <img
+                class="participant__video"
+                src="./assets/images/video.jpg"
+                alt=""
+              />
+              <img
+                class="participant__avatar"
+                src="./assets/images/profile1.png"
+                alt=""
+              />
             </div>
             <div class="participant__meta">
               <img
@@ -27,16 +36,46 @@
                 src="./assets/icons/icon-mic-off.svg"
                 alt="마이크 꺼짐"
               />
-              <span class="participant__name">최아로인</span>
+              <span class="participant__name">짱구</span>
             </div>
           </div>
 
-          <div class="participant" aria-label="참가자">
+          <div class="participant is-video-off" aria-label="참가자">
             <div class="participant__media">
-              <img class="participant__video" src="" alt="" />
+              <img
+                class="participant__avatar"
+                src="./assets/images/profile2.png"
+                alt=""
+              />
             </div>
             <div class="participant__meta">
-              <span class="participant__name">홍길동</span>
+              <span class="participant__name">유리</span>
+            </div>
+          </div>
+
+          <div class="participant is-video-off" aria-label="참가자">
+            <div class="participant__media">
+              <img
+                class="participant__avatar"
+                src="./assets/images/profile3.png"
+                alt=""
+              />
+            </div>
+            <div class="participant__meta">
+              <span class="participant__name">짱아</span>
+            </div>
+          </div>
+
+          <div class="participant is-video-off" aria-label="참가자">
+            <div class="participant__media">
+              <img
+                class="participant__avatar"
+                src="./assets/images/profile4.png"
+                alt=""
+              />
+            </div>
+            <div class="participant__meta">
+              <span class="participant__name">철수</span>
             </div>
           </div>
         </section>
@@ -49,13 +88,42 @@
             class="side-panel__section side-panel__section--participants"
             aria-label="참가자"
           >
-            <div class="">참가자 영역</div>
+            <div class="panel__header">
+              <span class="panel__header--text">참가자</span>
+              <button type="button" class="btn-close">
+                <img src="./assets/icons/icon-close.svg" alt="닫기 버튼" />
+              </button>
+            </div>
+            <div class="panel__content">
+              <div class="panel__participants--list">
+                <div class="panel__participants--profile">
+                  <img src="./assets/images/profile1.png" alt="프로필 사진" />
+                </div>
+                <div class="panel__participants--name">짱구</div>
+                <div class="panel__participants--control">마이크/카메라</div>
+              </div>
+            </div>
+            <div class="panel__footer">
+              <button>초대</button>
+              <button>음소거</button>
+              <button>···</button>
+            </div>
           </section>
           <section
             class="side-panel__section side-panel__section--chat"
             aria-label="채팅"
           >
-            <div class="">채팅 영역</div>
+            <div class="panel__header">
+              <span>채팅 영역</span>
+              <button class="btn-close">
+                <img src="./assets/icons/icon-close.svg" alt="닫기 버튼" />
+              </button>
+            </div>
+            <div class="panel__content"></div>
+            <div class="panel__footer">
+              <input type="text" placeholder="모든 사람에게 메시지 보내기" />
+              <button class="btn-send"></button>
+            </div>
           </section>
         </div>
       </aside>

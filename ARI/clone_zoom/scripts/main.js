@@ -37,6 +37,7 @@ if (videoBtn && videoIcon) {
     videoIcon.src = videoOff
       ? "./assets/icons/icon-video-off.svg"
       : "./assets/icons/icon-video.svg";
+    myCard.classList.toggle("is-video-off", videoOff);
   });
 }
 
@@ -59,15 +60,16 @@ const btnParticipants = document.querySelector(".btn-participants");
 const btnChat = document.querySelector(".btn-chat");
 
 function updatePanelState() {
-  const pOn = btnParticipants?.getAttribute("aria-pressed") === "true";
-  const cOn = btnChat?.getAttribute("aria-pressed") === "true";
+  const isParticipantsOpen =
+    btnParticipants?.getAttribute("aria-pressed") === "true";
+  const isChatOpen = btnChat?.getAttribute("aria-pressed") === "true";
 
   // 섹션 열림/닫힘
-  secParticipants?.classList.toggle("is-open", !!pOn);
-  secChat?.classList.toggle("is-open", !!cOn);
+  secParticipants?.classList.toggle("is-open", !!isParticipantsOpen);
+  secChat?.classList.toggle("is-open", !!isChatOpen);
 
   // 패널 열림/닫힘
-  const open = !!(pOn || cOn);
+  const open = !!(isParticipantsOpen || isChatOpen);
   appRoot?.classList.toggle("app--panel-open", open);
   sidePanel?.setAttribute("aria-hidden", String(!open));
 
@@ -75,7 +77,9 @@ function updatePanelState() {
   sidePanel?.classList.remove("side-panel--single", "side-panel--split");
   if (open) {
     sidePanel?.classList.add(
-      pOn && cOn ? "side-panel--split" : "side-panel--single"
+      isParticipantsOpen && isChatOpen
+        ? "side-panel--split"
+        : "side-panel--single"
     );
   }
 }
@@ -90,6 +94,23 @@ btnParticipants?.addEventListener("click", () =>
   togglePressed(btnParticipants)
 );
 btnChat?.addEventListener("click", () => togglePressed(btnChat));
+
+sidePanel
+  ?.querySelectorAll(".side-panel__section .btn-close")
+  ?.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const section = e.currentTarget.closest(".side-panel__section");
+
+      if (section?.classList.contains("side-panel__section--participants")) {
+        btnParticipants?.setAttribute("aria-pressed", "false");
+      }
+      if (section?.classList.contains("side-panel__section--chat")) {
+        btnChat?.setAttribute("aria-pressed", "false");
+      }
+
+      updatePanelState();
+    });
+  });
 
 // 초기 반영
 updatePanelState();
