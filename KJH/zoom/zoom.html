@@ -4,64 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZOOM 클론 코딩</title>
+    <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="wrap">
-        <header>
-            <div aria-label="logo"><img src="./img/logo.png"></div>
-            <div aria-label="tab_menu"></div>
-            <div aria-label="login"></div>
+        <header aria-label="topmenu">
+            <div class="logo"><div class="logo_arrow"></div></div>
+            <div class="tab"></div>
+            <div class="login"></div>
+            <div class="close"></div>
         </header>
         
         <div class="container">
-
-            <!-- 소스순서 -->
-            <aside aria-label="chat">채팅</aside>
-
             <main>
-                <div class="member_list">
-                    <!-- <ul>
-                        <li>참석자</li>
-                    </ul>
-                    <div>next</div> -->
+                <div class="member">
+                    <div class="first"><a href=""><img src="img/arrow1.png" alt=""></a></div>
+                    <div><img src="img/member.png" alt=""></div>
+                    <div><img src="img/member.png" alt=""></div>
+                    <div><img src="img/member.png" alt=""></div>
+                    <div><img src="img/member.png" alt=""></div>
+                    <div><img src="img/member.png" alt=""></div>
+                    <div class="last"><a href=""></a><img src="img/arrow2.png" alt=""></a></div>
                 </div>
-
-                <section aria-label="screen"></section>
-
-                <footer>
-
-                    <!-- 네비코딩위치 -->
-                    <nav> 
+                <section aria-label="screen">
+                    <img src="img/3.png" alt=""></a>
+                </section>
+                <nav>
+                    <div class="nav_left">
                         <ul>
-                            <li>네비게이션</li>
-                            <li>참가자</li>
-                            <li>반응</li>
-                            <li>공유</li>
-                            <li>채팅</li>
-                            <li>회의정보</li>
-                            <li>앱</li>
-                            <li>소회의실 참가</li>
-                            <li>더 보기</li>
-                        </ul>
-                    </nav>
-
-                    <div class="left">
-                        <ul>
-                            <li>오디오</li>
-                            <li>비디오</li>
+                            <li><img src="img/nav_sound_no.png" alt=""></li>
+                            <li><img src="img/nav_video.png" alt=""></li>
                         </ul>
                     </div>
-                    <div class="right">
+                    <div class="nav_center"> 
                         <ul>
-                            <li>나가기</li>
+                            <li><img src="img/nav_01.png" alt=""></li>
+                            <li><img src="img/nav_arrow.png" alt=""></li>
+                            <li><img src="img/nav_02.png" alt=""></li>
+                            <li><img src="img/nav_03.png" alt=""></li>
+                            <li><img src="img/nav_04.png" alt=""></li>
+                            <li><img src="img/nav_arrow.png" alt=""></li>
+                            <li><img src="img/nav_05.png" alt=""></li>
+                            <li><img src="img/nav_06.png" alt=""></li>
+                            <li><img src="img/nav_07.png" alt=""></li>
                         </ul>
                     </div>
-
-                   
-                </footer>
+                    <div class="nav_right">
+                        <img src="img/nav_out.png" alt="">
+                    </div>
+                </nav>
             </main>
 
+            <div class="chat">
+                <div class="chat_wrap">
+                    <div class="chat_title">Deep Dive 프론트엔드 개발자 과정...</div>
+                    <div class="chat_close"></div>
+                </div>  
+                <div class="chat_group"></div>
+                <div class="chat_content">
+                    <div>챗팅</div>
+                    <div class="new">새메시지</div>
+                    <div>
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                        챗팅<br />
+                    </div>
+                </div>
+                <div class="chat_textarea">
+                    <textarea id="message" name="message" placeholder="모든 사람에게 메시지 보내기"></textarea>
+                </div>
+                <div class="chat_icon_wrap">
+                    <div class="chat_icon"></div>
+                    <div class="chat_send"></div>
+                </div>
+            </div>
+           
         </div>
         
     </div>
