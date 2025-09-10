@@ -57,7 +57,7 @@ header .close{
     background: url("img/1-4.png") no-repeat center;
 }
 
-.container{
+.container_wrap{
     flex-grow: 1;
     flex-flow: row nowrap;
 }
@@ -166,20 +166,26 @@ section{
     background-color: black;
 }
 
-nav{
+.nav_warp{
     height:70px;
     flex-flow: row nowrap;
+    background: #000;
 }
 
 .nav_left{
-    width:120px;
+    width:150px;
     align-items:center;
-    padding-left: 20px;
 }
 
 .nav_left ul{
     align-items:center;
+    gap:5px;
+    padding-left:10px;
 }
+
+.nav_left li svg{
+    margin:0 0 -12px 8px;
+    }
 
 .nav_center{
     flex-grow: 1;
@@ -199,4 +205,15 @@ nav{
     justify-content:flex-end;
     align-items:center;
     padding-right:20px
+}
+
+
+
+.btn-dark{
+    background-color: black;
+    border: none;
+}
+
+.btn{
+    font-size:0.7rem;
 }
