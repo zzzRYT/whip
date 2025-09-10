@@ -2,28 +2,21 @@
 @import './components/MainContent/mainContent.css';
 @import './components/MainCam/mainCam.css';
 @import './components/Footer/footer.css';
-@import './components/Footer/button.css';
 @import './components/SideItem/sideItem.css';
+@import './components/SideItem/chat.css';
 
 body,
 html {
-  height: 100%;
-  margin: 0;
-  font-family: sans-serif;
   background-color: #1c1c1c;
-  color: white;
+  color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
-.container {
-  display: flex;
-}
-
-.main-container {
+.wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  flex-grow: 1;
+  height: 100vh;
 }
 
 .header {
@@ -31,6 +24,42 @@ html {
   background-color: hsl(0, 0%, 16%);
 }
 
-.footer-container {
+.container {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.main-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.footer-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.side-bar {
+  width: 360px;
+  flex-shrink: 0;
+  background-color: #242424;
+  display: none;
+  flex-direction: column;
+}
+
+.side-bar.active {
+  display: flex;
 }

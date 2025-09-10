@@ -1,148 +1,219 @@
-*{
-    border: 0 solid;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    overflow: hidden;
+div, ul, header, main, nav, section, footer{
+    display: flex;
 }
+
 body{
-    height:100vh;
-    width: 100vw;
     font-size: 16px;
     color:#fff;
     background-color: #000000;
     line-height: 1.7rem;
 }
 
-.wrap{position: relative;}
-
+.wrap{
+    flex-flow: column nowrap;
+    min-height:100vh;
+    min-width: 1020px;
+}
 
 header{
-    position: relative;
-    height: 65px; 
-    background-color:#2a2b2d; 
-}
-/* 로고 */
-header div:nth-child(1){
-    position: absolute;
-    left:10px; 
-    top:15px;
-    width:200px;
+    height: 65px;
+    background-color: #2a2b2d;
+    flex-flow: row nowrap;
 }
 
-/* 탭 */
-header div:nth-child(2){
+header .logo{
+    background: url("img/logo.png") no-repeat center;
+    width:150px;
+    height:65px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header .logo_arrow{
+    background: url('img/logo_arrow.png') no-repeat;
+    width:26px;
+    height: 30px;
+}
+header .logo_arrow:hover{
+    cursor: pointer;
+    background-position: 0 -30px ;
+}
+
+header .tab{
+    flex-grow: 1;
     height:65px;
     background-image: url("img/1-1.png"); 
-    background-position: left top;
-    background-repeat: no-repeat;
 }
 
-
-/* 로그인 */
-header div:nth-child(3){
-    position: absolute;
-    top:5px;
-    right: 0;
-    width:638px; 
+header .login{
+    width:400px;
     height:65px;
-    background-color: #2a2b2d;
-    background-image: url("img/1-2.png"); 
-    background-position: right top;
-    background-repeat: no-repeat;
+    background: url("img/1-3.png") no-repeat right;
 }
 
-.container{
-    position: relative;
-    height: calc(100vh - 65px);
-    width: 100vw;
+header .close{
+    width:150px;
+    height:65px;
+    background: url("img/1-4.png") no-repeat center;
 }
 
-main {
-    width: calc(100% - 300px);
-    height: 100%;
+.container_wrap{
+    flex-grow: 1;
+    flex-flow: row nowrap;
 }
 
-/* 멤버목록 */
-.member_list{
-    width:100%;
-    height:110px; 
-    background-color:#131619; 
-    background-image: url("img/2.png"); 
-    background-size: auto 110px;
-    background-position: center top;
-    background-repeat: no-repeat;
+main{
+    flex-grow: 1;
+    flex-flow: column nowrap;
 }
 
-/* 큰화면 */
-section{
-    /* width: 100%; */
-    height: calc(100vh - 110px);
-    background-color:#131619; 
-    background-image: url("img/3.png"); 
-    background-size: 70vh;
-    background-position: center top;
-    background-repeat: no-repeat;
-}
-
-/* chat */
-aside{
-    position: absolute;
-    right: 0;
-    width: 300px; 
-    height: calc(100vh - 73px  - 65px);
-    background-color:#ffffff;
-    border:1px solid rgb(255, 255, 255);
+.chat{
+    min-width:360px;
+    /* background: white url("img/chat.png") no-repeat top; */
+    flex-flow: column nowrap;
     border-radius: 10px;
-    color: #000000;
 }
 
-/* 하단메뉴 */
-footer{
-    position: fixed;
-    bottom:0; 
-    width: 100%; 
+.chat_wrap{
+    justify-content: space-between;
+    background-color: #f1f4f6;
+}
+.chat .chat_title{
+    height:45px;
+    line-height: 2.5rem;
+    color: black;
+    padding-left:10px;
+    font-weight: bold;
+}
+
+.chat_close{
+    width:90px;
+    background: url("img/chat_title_icon.png") no-repeat right;
+}
+
+.chat_group{
     height:70px;
+    border-bottom:1px solid #ebeef4;
+    background: white url("img/chat_member.png") no-repeat left;
 }
 
-nav{position: relative;
-    left:300px;
-    width: calc(100% - 450px);
-    height:inherit;
-    background-color:rgb(133, 30, 158);
+.chat_content{
+    flex-grow: 1;
+    background-color: white;
+    overflow-y:auto;
+    color: black;
+    flex-flow: column nowrap;
+    padding: 10px;
 }
 
-nav ul li{
-    display: inline-block;
-    width:100px; 
-    height:73px;
-    text-align: center;
-    line-height: 40px;
-    margin-right: 8px;
-  }
+.chat_content .new{
+    display: block;
+    /* border: 1px solid #f6bfbf; */
+    color: #e52879;
+    align-items: center; 
 
-footer .left{
-    position: absolute; 
-    left:0;
-    width:300px; 
-    height:inherit;
-    background-color:rgb(15, 149, 211);
-    /* background-image: url("img/4-1.png"); 
-    background-size: auto 50px;
-    background-position: left top;
-    background-repeat: no-repeat; */
 }
 
-footer .right{
-    position: absolute; 
-    right:0;
-    width:150px; 
-    height:inherit ;
-    text-align: right; 
-    background-color:rgb(98, 0, 255);
-    /* background-image: url("img/4-3.png"); 
-    background-size: auto 50px;
-    background-position: right top;
-    background-repeat: no-repeat; */
+.chat_textarea{
+    height:80px;
+    border: 1px solid #ebeef4;
+}
+
+.chat_textarea textarea{
+    width:100%;
+    border:none;
+    padding:5px;;
+}
+
+.chat_icon_wrap{
+    height:40px;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.chat_icon{
+    flex-grow: 1;
+    background: url("img/chat_icon.png") no-repeat left;
+}
+
+.chat_send{
+    width:50px;
+    margin-right:10px;
+    background:  url("img/chat_icon2.png") no-repeat right;
+}
+
+.member{
+    height:110px; 
+    background-color: rgb(0, 0, 0);
+    flex-flow: row nowrap;
+    justify-content:center;
+    align-items:center;
+    gap:10px
+}
+
+.member img{
+    border-radius: 10px;
+}
+
+.first,.last{
+    width:25px;
+}
+
+section{
+    flex-grow: 1;
+    justify-content:center;
+    align-items:center;
+    background-color: black;
+}
+
+.nav_warp{
+    height:70px;
+    flex-flow: row nowrap;
+    background: #000;
+}
+
+.nav_left{
+    width:150px;
+    align-items:center;
+}
+
+.nav_left ul{
+    align-items:center;
+    gap:5px;
+    padding-left:10px;
+}
+
+.nav_left li svg{
+    margin:0 0 -12px 8px;
+    }
+
+.nav_center{
+    flex-grow: 1;
+    justify-content:center;
+    align-items:center;
+}
+
+.nav_center ul{
+    flex-flow: row nowrap;
+    align-items:center;
+    gap: 30px;
+}
+
+.nav_right{
+    width:80px;
+    background: black;
+    justify-content:flex-end;
+    align-items:center;
+    padding-right:20px
+}
+
+
+
+.btn-dark{
+    background-color: black;
+    border: none;
+}
+
+.btn{
+    font-size:0.7rem;
 }
