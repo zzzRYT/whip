@@ -1,3 +1,8 @@
+@import url(./base.css);
+@import url(./video.css);
+@import url(./panel.css);
+@import url(./toolbar.css);
+
 .app {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -22,7 +27,6 @@
   padding: 16px;
 }
 
-/* 비디오 그리드 */
 .video-grid {
   display: grid;
   grid-template-columns: repeat(var(--cols, 1), 1fr);
@@ -31,65 +35,6 @@
   gap: 5px;
 }
 
-/* 참가자 */
-.participant {
-  position: relative;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.participant__media {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  justify-items: center;
-  align-content: center;
-}
-.participant__video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.participant__avatar {
-  width: 20%;
-  height: auto;
-  border-radius: 10px;
-  display: none;
-}
-.participant__meta {
-  position: absolute;
-  bottom: 6px;
-  left: 6px;
-  display: flex;
-  align-items: end;
-  padding: 0 10px;
-  background-color: rgba(0, 0, 0, 0.384);
-  border-radius: 4px;
-  font-size: 16px;
-}
-/* 마이크 꺼짐 상태 */
-.icon-mic-off {
-  display: none;
-  width: 20px;
-  height: 20px;
-  margin-right: 6px;
-}
-.participant--self.is-mic-off .icon-mic-off {
-  display: inline-block;
-}
-/*비디오 꺼짐 상태 */
-.participant.is-video-off .participant__media {
-  background: #1a1a1a;
-}
-.participant.is-video-off .participant__video {
-  display: none;
-}
-.participant.is-video-off .participant__avatar {
-  display: block;
-}
-
-/* content 레이아웃 */
 .content {
   display: grid;
   grid-template-columns: 1fr; /* 패널 닫힘 */
@@ -97,139 +42,4 @@
 }
 .app--panel-open .content {
   grid-template-columns: 1fr 320px;
-}
-
-/* 사이드 패널 */
-.side-panel {
-  background: #111111;
-  display: none;
-  padding: 8px;
-}
-.app--panel-open .side-panel {
-  display: block;
-}
-
-/* 사이드 내부 */
-.side-panel__sections {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: #111;
-}
-.side-panel__section {
-  position: relative;
-  display: none;
-  border-radius: 10px;
-  background: #fff;
-  overflow: auto;
-}
-.side-panel__section.is-open {
-  display: flex;
-  flex-direction: column;
-}
-
-.side-panel--split .side-panel__sections {
-  gap: 8px;
-}
-.side-panel--single .side-panel__section.is-open {
-  flex: 1 1 100%;
-}
-.side-panel--split .side-panel__section.is-open {
-  flex: 1 1 50%;
-}
-
-.panel__header {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(232, 235, 238);
-  padding: 10px 0;
-  font-weight: 600;
-}
-.btn-close {
-  position: absolute;
-  right: 10px;
-  width: 15px;
-  height: 15px;
-}
-.panel__participants--list {
-  display: flex;
-  padding: 0 15px;
-  gap: 20px;
-}
-.panel__participants--profile {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-}
-.panel__participants--control {
-  display: flex;
-  justify-items: end;
-}
-.panel__footer {
-  position: absolute;
-  bottom: 0;
-  padding: 10px 0;
-  display: flex;
-  gap: 10px;
-}
-
-/* 네비게이션 영역 */
-.app--panel-open .toolbar {
-  width: calc(100% - 320px);
-}
-.toolbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background: #1a1a1a;
-  transform: translateY(100%);
-  transition: transform 0.2s ease;
-}
-.toolbar--visible {
-  transform: translateY(0);
-}
-.toolbar__group {
-  display: flex;
-}
-.toolbar__group--center {
-  margin: 0 auto;
-}
-.toolbar__btn {
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 6px;
-  padding: 5px 15px;
-  white-space: nowrap;
-}
-.toolbar__btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.toolbar__btn > img {
-  width: 30px;
-  height: 30px;
-}
-
-@media (max-width: 768px) {
-  .toolbar__group--center {
-    display: none;
-  }
-}
-
-@media (min-width: 1024px) {
-  .toolbar__btn {
-    padding: 5px 20px;
-  }
-  .toolbar__group {
-    display: flex;
-    gap: 10px;
-  }
 }

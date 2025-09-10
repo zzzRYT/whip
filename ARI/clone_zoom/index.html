@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>clone_zoom</title>
-    <link rel="stylesheet" href="./styles/base.css" />
     <link rel="stylesheet" href="./styles/main.css" />
   </head>
   <body class="app">
@@ -104,9 +103,7 @@
               </div>
             </div>
             <div class="panel__footer">
-              <button>초대</button>
-              <button>음소거</button>
-              <button>···</button>
+              <button>음소거 해제</button>
             </div>
           </section>
           <section
@@ -119,10 +116,46 @@
                 <img src="./assets/icons/icon-close.svg" alt="닫기 버튼" />
               </button>
             </div>
-            <div class="panel__content"></div>
-            <div class="panel__footer">
-              <input type="text" placeholder="모든 사람에게 메시지 보내기" />
-              <button class="btn-send"></button>
+
+            <div class="panel__content">
+              <div class="chat__messages">
+                <div class="message message--other">
+                  <img
+                    src="./assets/images/profile2.png"
+                    alt=""
+                    class="message__avatar"
+                  />
+                  <div class="message__body">
+                    <div class="message__meta">
+                      <span class="message__sender">유리</span>
+                      <time class="message__time">11:22 AM</time>
+                    </div>
+                    <div class="message__text">Zoom 클론 코딩!</div>
+                  </div>
+                </div>
+                <div class="message message--me">
+                  <img
+                    src="./assets/images/profile1.png"
+                    alt=""
+                    class="message__avatar"
+                  />
+                  <div class="message__body">
+                    <div class="message__meta">
+                      <span class="message__sender">사용자</span>
+                      <time class="message__time">11:24 AM</time>
+                    </div>
+                    <div class="message__text">구현 중 ~!</div>
+                  </div>
+                </div>
+              </div>
+
+              <form class="chat__form">
+                <textarea
+                  type="text"
+                  class="chat__input"
+                  placeholder="모든 사람에게 메시지 보내기"
+                ></textarea>
+              </form>
             </div>
           </section>
         </div>
@@ -176,7 +209,7 @@
       </div>
 
       <div class="toolbar__group">
-        <button class="toolbar__btn" aria-label="회의 나가기">
+        <button class="toolbar__btn btn-out" aria-label="회의 나가기">
           <img src="./assets/icons/icon-out.svg" alt="회의 나가기" />
           <span>나가기</span>
         </button>

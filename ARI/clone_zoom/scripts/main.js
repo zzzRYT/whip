@@ -114,3 +114,51 @@ sidePanel
 
 // 초기 반영
 updatePanelState();
+
+const textarea = document.querySelector(".chat__input");
+const list = document.querySelector(".chat__messages");
+
+const msgTime = (d = new Date()) =>
+  d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+
+textarea.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+function sendMessage() {
+  const text = textarea.value.trim();
+  if (!text) return;
+
+  // 내 메시지 DOM
+  const wrap = document.createElement("div");
+  wrap.className = "message message--me";
+  wrap.innerHTML = `
+      <img
+        src="./assets/images/profile1.png"
+        alt=""
+        class="message__avatar"
+      />
+      <div class="message__body">
+        <div class="message__meta">
+          <span class="message__sender">사용자</span>
+          <time class="message__time">${msgTime()}</time>
+        </div>
+        <div class="message__text">${escapeHtml(text)}</div>
+      </div>
+    `;
+  list.appendChild(wrap);
+  wrap.scrollIntoView({ behavior: "smooth", block: "end" });
+  textarea.value = "";
+}
+
+function escapeHtml(str) {
+  return str
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
