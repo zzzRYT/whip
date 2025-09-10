@@ -40,6 +40,9 @@
   grid-template-columns: 1fr; /* 패널 닫힘 */
   min-height: calc(100vh - 64px);
 }
+.content > * {
+  min-height: 0;
+}
 .app--panel-open .content {
   grid-template-columns: 1fr 320px;
 }

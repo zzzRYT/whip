@@ -19,12 +19,13 @@
   display: none;
   border-radius: 10px;
   background: #fff;
-  overflow: auto;
+  overflow: hidden;
   z-index: 10;
 }
 .side-panel__section.is-open {
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .side-panel--split .side-panel__sections {
@@ -80,8 +81,8 @@
 .side-panel__section--chat .panel__content {
   display: flex;
   flex-direction: column;
-  height: 100%;
   overflow: hidden;
+  height: 100%;
 }
 .chat__messages {
   display: flex;

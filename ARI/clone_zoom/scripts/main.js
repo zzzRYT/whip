@@ -150,7 +150,7 @@ function sendMessage() {
       </div>
     `;
   list.appendChild(wrap);
-  wrap.scrollIntoView({ behavior: "smooth", block: "end" });
+  list.scrollTop = list.scrollHeight;
   textarea.value = "";
 }
 
