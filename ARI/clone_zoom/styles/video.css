@@ -9,8 +9,8 @@
   position: relative;
   aspect-ratio: 16 / 9;
   background: #000;
-  justify-items: center;
-  align-content: center;
+  display: grid;
+  place-items: center;
 }
 .participant__video {
   width: 100%;
