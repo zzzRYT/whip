@@ -53,28 +53,44 @@
   width: 15px;
   height: 15px;
 }
-.panel__footer {
-  position: absolute;
-  bottom: 0;
-  padding: 10px 0;
-  display: flex;
-  gap: 10px;
-}
 
 /* 참가자 영역 패널 */
 .panel__participants--list {
   display: flex;
-  padding: 0 15px;
-  gap: 20px;
+  flex-direction: column;
+  padding: 0 10px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.panel__participants--item {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  column-gap: 10px;
+  padding: 6px 8px;
+}
+.panel__participants--item:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 .panel__participants--profile {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+}
+.panel__participants--profile > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 10px;
 }
 .panel__participants--control {
   display: flex;
-  justify-items: end;
+  align-items: center;
+}
+.panel__participants--control > img {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
 }
 
 /* 채팅 영역 패널 */
