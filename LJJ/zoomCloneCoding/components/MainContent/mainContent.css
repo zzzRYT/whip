@@ -1,5 +1,6 @@
 .video-grid {
   display: flex;
+  justify-content: center;
   gap: 1px;
   width: 100%;
 }

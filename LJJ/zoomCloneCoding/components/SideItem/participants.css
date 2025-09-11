@@ -1,0 +1,27 @@
+.participants-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.participants-header {
+  display: flex;
+  margin-bottom: 10px;
+  background-color: #121212;
+  padding: 0px 10px;
+}
+
+.participants-header > h2 {
+  flex-grow: 1;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.participants-header-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}

@@ -13,7 +13,7 @@ export default function createComponent({
     if (html) {
       target.innerHTML = html;
       didMount(state, props);
-      setEvent(addEvent);
+      setEvent(addEvent, setState, state);
     }
   }
 

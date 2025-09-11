@@ -12,7 +12,7 @@ body{
 .wrap{
     flex-flow: column nowrap;
     min-height:100vh;
-    min-width: 1020px;
+    /* min-width: 1220px; */
 }
 
 header{
@@ -44,6 +44,9 @@ header .tab{
     height:65px;
     background-image: url("img/1-1.png"); 
 }
+
+
+
 
 header .login{
     width:400px;
@@ -184,7 +187,7 @@ section{
 }
 
 .nav_left li svg{
-    margin:0 0 -12px 8px;
+    margin:0 0 4px 8px;
     }
 
 .nav_center{
@@ -199,6 +202,43 @@ section{
     gap: 30px;
 }
 
+
+
+
+.nav_center svg{
+    margin:0 0 4px 2px;
+    }
+
+.nav_center .nav01 svg{
+    margin:0 0 4px 8px;
+    }
+
+.nav_center .nav02 svg{
+    margin:0 0 4px 2px;
+    transform: rotate(25deg);
+    }
+
+.nav_center .nav03 div{
+    margin:0 0 4px 2px;
+    background:#24d458; 
+    width:30px; 
+    height:20px; 
+    border-radius:3px;
+}
+
+.nav_center .nav03 svg{
+    margin-left:4px;
+    color: black;
+}
+
+.nav_center .nav05 svg{
+    margin-left:14px;
+}
+
+.nav_center .nav07 svg{
+    margin-left:8px;
+}
+
 .nav_right{
     width:80px;
     background: black;
@@ -207,13 +247,75 @@ section{
     padding-right:20px
 }
 
+.nav_right .nav08 svg{
+    margin-left:4px;
+    color:red;
+}
 
-
-.btn-dark{
+.btn-dark, .btn-secondary{
     background-color: black;
     border: none;
 }
 
+.btn-secondary.show, .btn-secondary:hover, .btn-dark:hover,.btn-secondary:active, .btn-dark:active,.btn-secondary:active, .btn-dark:active{
+    background-color: #222;
+}
+
 .btn{
     font-size:0.7rem;
+}
+
+.btn-group ul{padding:10px}
+
+.dropdown-menu{
+    background-color: #222;
+    padding: 0 0 0 10px;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.dropdown-menu a{
+    padding-left:10px
+}
+
+.dropdown-menu li:hover{
+ background-color: blue;
+}
+
+
+
+/* 1220px 이하 */
+@media screen and (max-width: 1220px) {
+    .chat{display: none}
+}
+
+@media screen and (max-width: 855px) {
+    .nav06{display: none}
+}
+@media screen and (max-width: 780px) {
+    .member div.pic5,
+    .nav05{display: none}
+    }
+@media screen and (max-width: 700px) {
+    .member div.pic4,
+    .nav04{display: none}
+    }
+@media screen and (max-width: 600px) {
+    .member div.pic3,
+    .login,
+    .nav03{display: none}
+    }
+@media screen and (max-width: 500px) {
+    .member div.pic2,
+    .nav02{display: none}
+}
+
+@media screen and (max-width: 400px) {
+    .wrap{min-width: 340px;}
+    .nav01,
+    .nav02,
+    .nav03,
+    .nav04,
+    .nav05,
+    .nav06{display: none}
 }
