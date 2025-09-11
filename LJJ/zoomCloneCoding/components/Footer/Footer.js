@@ -1,4 +1,5 @@
 import createComponent from '../../core/createComponent.js';
+import Participants from '../SideItem/Participants.js';
 import Chat from '../SideItem/Chat.js';
 
 export default function Footer({ target, props }) {
