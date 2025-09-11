@@ -9,7 +9,7 @@ export default function Chat({ target, props }) {
       messages: [
         { id: 1, user: '이재진', text: '안녕하세요', time: '오전 10:30' },
         { id: 2, user: '강지혜', text: '안녕하세요', time: '오전 10:31' },
-        { id: 3, user: '최아로인', text: '안녕하세요', time: '오전 10:32' },
+        { id: 3, user: '최아로인', text: '누구세요', time: '오전 10:32' },
         { id: 4, user: '정윤오', text: '안녕하세요', time: '오전 10:33' },
         { id: 5, user: '이주연', text: '안녕하세요', time: '오전 10:34' },
         { id: 6, user: '김미소', text: '안녕하세요', time: '오전 10:35' },

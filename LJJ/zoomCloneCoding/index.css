@@ -3,6 +3,7 @@
 @import './components/MainCam/mainCam.css';
 @import './components/Footer/footer.css';
 @import './components/SideItem/chat.css';
+@import './components/SideItem/participants.css';
 
 body,
 html {

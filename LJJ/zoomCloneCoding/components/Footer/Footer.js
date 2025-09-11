@@ -83,12 +83,6 @@ export default function Footer({ target, props }) {
 
       const sideBar = document.querySelector('.side-bar');
 
-      const openSideBar = (component) => {
-        sideBar.classList.add('active');
-        sideBar.innerHTML = '';
-        new component({ target: sideBar, props: {} });
-      };
-
       const closeSideBar = () => {
         sideBar.classList.remove('active');
         sideBar.innerHTML = '';
@@ -101,9 +95,12 @@ export default function Footer({ target, props }) {
         addEvent.isParticipant = false;
         addEvent.isChat = false;
 
+        sideBar.innerHTML = ''; // Clear sidebar first
+
         if (!wasActive) {
           addEvent.isParticipant = true;
-          openSideBar(Participants);
+          sideBar.classList.add('active');
+          Participants({ target: sideBar, props: { closeSideBar } });
         } else {
           closeSideBar();
         }
@@ -116,9 +113,12 @@ export default function Footer({ target, props }) {
         addEvent.isParticipant = false;
         addEvent.isChat = false;
 
+        sideBar.innerHTML = ''; // Clear sidebar first
+
         if (!wasActive) {
           addEvent.isChat = true;
-          openSideBar(Chat);
+          sideBar.classList.add('active');
+          Chat({ target: sideBar, props: { closeSideBar } });
         } else {
           closeSideBar();
         }
