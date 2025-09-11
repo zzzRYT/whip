@@ -1,0 +1,48 @@
+/* toolbar 영역 */
+.app--panel-open .toolbar {
+  width: calc(100% - 320px);
+}
+.toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #1a1a1a;
+  transform: translateY(100%);
+  transition: transform 0.2s ease;
+}
+.toolbar--visible {
+  transform: translateY(0);
+}
+.toolbar__group {
+  display: flex;
+}
+.toolbar__group--center {
+  margin: 0 auto;
+}
+.toolbar__btn {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6px;
+  padding: 5px 15px;
+  white-space: nowrap;
+}
+.toolbar__btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.toolbar__btn > img {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 768px) {
+  .toolbar__group--center {
+    display: none;
+  }
+}

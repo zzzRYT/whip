@@ -1,0 +1,168 @@
+.chat-container {
+  border: 1px solid #ccc;
+  background-color: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header {
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+/*...으로 표현*/
+.chat-header > h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.chat-header-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+.chat-subheader {
+  display: flex;
+  padding: 5px 10px;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.9rem;
+  color: #666;
+  gap: 10px;
+}
+
+.chat-subheader > span {
+  border: 1px solid #666;
+}
+
+.people-fill-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.people-fill-icon-container > span {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #666;
+}
+
+.icon-style {
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #666;
+  color: cornflowerblue;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.icon-style.active {
+  border: 2px solid cornflowerblue;
+  background-color: cornflowerblue;
+  color: white; /* 아이콘 색상도 변경하면 좋습니다 */
+  border-radius: 5px; /* 테두리를 부드럽게 */
+}
+
+.chat-content-container {
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+}
+
+.chat-contents {
+  padding: 10px;
+  overflow-y: auto;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.chat-input-container {
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  background-color: #1c1c1c;
+}
+
+.chat-input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chat-message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.chat-message-header {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 3px;
+  font-size: 0.5em;
+}
+
+.chat-text {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  background-color: #666;
+  border-radius: 8px;
+}
+
+.chat-user-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.chat-username {
+  color: cornflowerblue;
+  font-weight: bold;
+}
+
+.chat-send-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-send-button {
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-send-button-container button {
+  margin-right: 5px;
+}

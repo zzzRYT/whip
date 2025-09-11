@@ -23,14 +23,40 @@ export default class MainContent extends Component {
     }
 
     didMount() {
-        const { people, main } = this.state;
+        const { main } = this.state;
         const mainCamContainer = this.$target.querySelector('.main-cam-container');
-        const videoGrid = this.$target.querySelector('.video-grid');
-
         new MainCam(mainCamContainer, { person: main });
 
+        const videoGrid = this.$target.querySelector('.video-grid');
+
+        this.renderPeopleCams();
+
+        const resizeObserver = new ResizeObserver(() => {
+            this.renderPeopleCams();
+        });
+
+        resizeObserver.observe(videoGrid);
+    }
+
+    renderPeopleCams() {
+        const { people } = this.state;
+        const videoGrid = this.$target.querySelector('.video-grid');
+
+        const containerWidth = videoGrid.clientWidth;
+        const itemMinWidth = 150;
+        const itemGap = 1;
+        const itemWidth = itemMinWidth + itemGap;
+
+        const visibleCount = Math.max(0, Math.floor(containerWidth / itemWidth));
+
+        if (videoGrid.children.length === visibleCount) {
+            return;
+        }
+
         videoGrid.innerHTML = '';
-        people.forEach((person) => {
+
+        const peopleToShow = people.slice(0, visibleCount);
+        peopleToShow.forEach((person) => {
             const camContainer = document.createElement('div');
             videoGrid.appendChild(camContainer);
             new PeopleCam(camContainer, {

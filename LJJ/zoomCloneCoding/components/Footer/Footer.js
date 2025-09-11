@@ -1,4 +1,6 @@
 import createComponent from '../../core/createComponent.js';
+import Participants from '../SideItem/Participants.js';
+import Chat from '../SideItem/Chat.js';
 
 export default function Footer({ target, props }) {
   return createComponent({
@@ -29,8 +31,8 @@ export default function Footer({ target, props }) {
           text: '나가기',
         },
       ],
-      isOpen: false,
-      sideBarContent: [],
+      isParticipant: false,
+      isChat: false,
     }),
     template: (state) => `
             <div class="controls">
@@ -79,22 +81,47 @@ export default function Footer({ target, props }) {
           event.target.style.color === 'red' ? 'white' : 'red';
       });
 
+      const sideBar = document.querySelector('.side-bar');
+
+      const closeSideBar = () => {
+        sideBar.classList.remove('active');
+        sideBar.innerHTML = '';
+      };
+
       // 참가자
       addEvent('click', '#participants', (event) => {
-        const sideBar = document.querySelector('.side-bar');
-        sideBar.innerHTML = `
-          <div class="side-item-container">
-              <div class="participants">참가자</div>
-          </div>
-        `;
+        const wasActive = addEvent.isParticipant;
+        // Reset states
+        addEvent.isParticipant = false;
+        addEvent.isChat = false;
+
+        sideBar.innerHTML = ''; // Clear sidebar first
+
+        if (!wasActive) {
+          addEvent.isParticipant = true;
+          sideBar.classList.add('active');
+          Participants({ target: sideBar, props: { closeSideBar } });
+        } else {
+          closeSideBar();
+        }
       });
 
       // 채팅
       addEvent('click', '#chat', (event) => {
-        const sideBar = document.querySelector('.side-bar');
-        sideBar.innerHTML = `
-          <div class="chatting-room">채팅</div>
-        `;
+        const wasActive = addEvent.isChat;
+        // Reset states
+        addEvent.isParticipant = false;
+        addEvent.isChat = false;
+
+        sideBar.innerHTML = ''; // Clear sidebar first
+
+        if (!wasActive) {
+          addEvent.isChat = true;
+          sideBar.classList.add('active');
+          Chat({ target: sideBar, props: { closeSideBar } });
+        } else {
+          closeSideBar();
+        }
       });
     },
   });

@@ -1,15 +1,16 @@
 .video-grid {
   display: flex;
+  justify-content: center;
   gap: 1px;
   width: 100%;
 }
 
-.main-content {
-  flex-grow: 1;
+.main-cam-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1rem;
   gap: 1rem;
+  flex-grow: 1;
 }
