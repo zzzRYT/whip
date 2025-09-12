@@ -12,7 +12,6 @@ body{
 .wrap{
     flex-flow: column nowrap;
     min-height:100vh;
-    /* min-width: 1220px; */
 }
 
 header{
@@ -74,12 +73,13 @@ main{
     min-width:360px;
     /* background: white url("img/chat.png") no-repeat top; */
     flex-flow: column nowrap;
-    border-radius: 10px;
+    background-color:black;
 }
 
 .chat_wrap{
     justify-content: space-between;
     background-color: #f1f4f6;
+    border-radius: 10px 0 0 0;
 }
 .chat .chat_title{
     height:45px;
@@ -110,11 +110,7 @@ main{
 }
 
 .chat_content .new{
-    display: block;
-    /* border: 1px solid #f6bfbf; */
-    color: #e52879;
-    align-items: center; 
-
+    color: #4d7ddd;
 }
 
 .chat_textarea{
@@ -132,6 +128,7 @@ main{
     height:40px;
     justify-content: space-between;
     background-color: #fff;
+    border-radius: 0 0 0 10px ;
 }
 
 .chat_icon{
@@ -158,6 +155,17 @@ main{
     border-radius: 10px;
 }
 
+.member .pic1,.pic2,.pic3,.pic4,.pic5{
+    width:161px;
+    height: 95px;
+    border-radius: 10px;
+    background: url("img/member.png");
+    align-items:flex-end;
+    padding: 0 0 1px 9px;
+    font-size: 0.72rem;
+    color:rgb(0, 0, 0)
+}
+
 .first,.last{
     width:25px;
 }
@@ -167,6 +175,20 @@ section{
     justify-content:center;
     align-items:center;
     background-color: black;
+}
+
+section div{
+    background-color: #11141b;
+    border:1px solid #151b29;
+    border-radius: 10px;
+    width:90%;
+    height:90%;
+    justify-content:center;
+    align-items:center;
+}
+
+section div span{
+    display: block;
 }
 
 .nav_warp{
@@ -201,9 +223,6 @@ section{
     align-items:center;
     gap: 30px;
 }
-
-
-
 
 .nav_center svg{
     margin:0 0 4px 2px;
@@ -282,9 +301,7 @@ section{
  background-color: blue;
 }
 
-
-
-/* 1220px 이하 */
+/* 미디어 쿼리 */
 @media screen and (max-width: 1220px) {
     .chat{display: none}
 }

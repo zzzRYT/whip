@@ -7,78 +7,85 @@ export default function Footer({ target, props }) {
     target,
     props,
     setup: (props) => ({
-      leftControlItems: [
-        { id: 'mic', text: '음소거' },
-        {
-          id: 'video',
-          text: '비디오 시작',
-        },
-      ],
-      middleControlItems: [
-        {
-          id: 'participants',
-          text: '참가자',
-        },
-        { id: 'chat', text: '채팅' },
-        {
-          id: 'more',
-          text: '더보기',
-        },
-      ],
-      rightControlItems: [
-        {
-          id: 'exit',
-          text: '나가기',
-        },
-      ],
+      isMic: false,
+      isVideo: false,
       isParticipant: false,
       isChat: false,
     }),
     template: (state) => `
             <div class="controls">
                 <div class='left-controls'>
-                    ${state.leftControlItems
-                      .map(
-                        (item) =>
-                          `<button class="control-button" id="${item.id}">${item.text}</button>`
-                      )
-                      .join('')}
+                    <button class="control-button" id="mic">
+                      ${
+                        state.isMic
+                          ? '<i class="bi bi-mic mic-on"></i>'
+                          : '<i class="bi bi-mic-mute mic-off"></i>'
+                      }
+                      <span>오디오</span>
+                    </button>
+                    <button class="control-button" id="video">
+                      ${
+                        state.isVideo
+                          ? '<i class="bi bi-camera-video video-on"></i>'
+                          : '<i class="bi bi-camera-video-off video-off"></i>'
+                      }
+                      <span>비디오</span>
+                    </button>
                 </div>
                 <div class='middle-controls'>
-                    ${state.middleControlItems
-                      .map(
-                        (item) =>
-                          `<button class="control-button" id="${item.id}">${item.text}</button>`
-                      )
-                      .join('')}
+                    <button class="control-button" id="participants">
+                      <i class="bi bi-people"></i>
+                      <span>참가자</span>
+                    </button>
+                    <button class="control-button" id="chat">
+                      <i class="bi bi-chat-dots"></i>
+                      <span>채팅</span>
+                    </button>
+                    <button class="control-button" id="more">
+                      <i class="bi bi-three-dots"></i>
+                      <span>더보기</span>
+                    </button>
                 </div>
                 <div class='right-controls'>
-                    ${state.rightControlItems
-                      .map(
-                        (item) =>
-                          `<button class="control-button" id="${item.id}">${item.text}</button>`
-                      )
-                      .join('')}
+                    <button class="control-button" id="out">
+                      <span>나가기</span>
+                    </button>
                 </div>
             </div>
     `,
     setEvent: (addEvent) => {
       // 마이크
-      addEvent('click', '#mic', (event) => {
-        event.target.textContent =
-          event.target.textContent === '음소거' ? '음소거 해제' : '음소거';
-        event.target.style.color =
-          event.target.style.color === 'red' ? 'white' : 'red';
+      addEvent('click', '#mic', () => {
+        const mic = document.querySelector('#mic');
+        const childElement = mic.firstElementChild;
+        if (childElement.classList.contains('bi-mic')) {
+          childElement.classList.remove('bi-mic');
+          childElement.classList.add('bi-mic-mute');
+          childElement.classList.remove('mic-on');
+          childElement.classList.add('mic-off');
+        } else {
+          childElement.classList.remove('bi-mic-mute');
+          childElement.classList.add('bi-mic');
+          childElement.classList.remove('mic-off');
+          childElement.classList.add('mic-on');
+        }
       });
 
       // 비디오
       addEvent('click', '#video', (event) => {
-        event.target.textContent =
-          event.target.textContent === '비디오 시작'
-            ? '비디오 중지'
-            : '비디오 시작';
-        event.target.style.color =
-          event.target.style.color === 'red' ? 'white' : 'red';
+        const video = document.querySelector('#video');
+        const childElement = video.firstElementChild;
+        if (childElement.classList.contains('bi-camera-video')) {
+          childElement.classList.remove('bi-camera-video');
+          childElement.classList.add('bi-camera-video-off');
+          childElement.classList.remove('video-on');
+          childElement.classList.add('video-off');
+        } else {
+          childElement.classList.remove('bi-camera-video-off');
+          childElement.classList.add('bi-camera-video');
+          childElement.classList.remove('video-off');
+          childElement.classList.add('video-on');
+        }
       });
 
       const sideBar = document.querySelector('.side-bar');
