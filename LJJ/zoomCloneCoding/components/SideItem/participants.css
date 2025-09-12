@@ -28,7 +28,7 @@
 .participants-list-container {
   flex-grow: 1;
   overflow-y: auto;
-}
+ }
 
 .participants-search {
   position: relative;
