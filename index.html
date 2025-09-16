@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zoom Clone Coding</title>
+    <title>위프</title>
   </head>
   <style>
     body {
@@ -15,60 +15,84 @@
     h1 {
       color: #333;
     }
-    .participants-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      max-width: 600px;
-      align-items: center;
+
+    .participants {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
+
     .participant {
-      background-color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .clone-coding-list {
+      border: 1px solid #ccc;
       padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      text-align: center;
+      margin: 10px;
     }
-    a {
-      text-decoration: none;
-      color: #007bff;
-    }
-    a:hover {
-      text-decoration: underline;
+
+    .clone-coding-list ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
   </style>
   <body>
-    <h1>Zoom Clone Coding [ 구름톤 6회차 - 프론트엔드 과정 ]</h1>
+    <h1>위프 [ 구름톤 6회차 - 프론트엔드 과정 1차 팀 스터디 ]</h1>
     <hr />
     <h3>참여자</h3>
 
-    <div class="participants-grid">
+    <div class="participants">
       <div class="participant">이재진</div>
-      <div>
-        <a
-          href="/whip/LJJ/zoomCloneCoding/index.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          >이재진 줌 클론코딩</a
-        >
+      <div class="clone-coding-list">
+        <ul>
+          <li>
+            <a
+              href="/LJJ/zoomCloneCoding/index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              >이재진 줌 클론코딩</a
+            >
+          </li>
+          <li>
+            <a
+              href="/LJJ/notionCloneCoding/index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              >이재진 노션 클론코딩</a
+            >
+          </li>
+        </ul>
       </div>
       <div class="participant">강지혜</div>
-      <div>
-        <a
-          href="/whip/KJH/zoom/zoom.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          >강지혜 줌 클론코딩</a
-        >
+      <div class="clone-coding-list">
+        <ul>
+          <li>
+            <a
+              href="/KJH/zoom/zoom.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              >강지혜 줌 클론코딩</a
+            >
+          </li>
+        </ul>
       </div>
       <div class="participant">최아로인</div>
-      <div>
-        <a
-          href="/whip/ARI/clone_zoom/index.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          >최아로인 줌 클론코딩</a
-        >
+      <div class="clone-coding-list">
+        <ul>
+          <li>
+            <a
+              href="/ARI/clone_zoom/index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              >최아로인 줌 클론코딩</a
+            >
+          </li>
+        </ul>
       </div>
     </div>
   </body>
