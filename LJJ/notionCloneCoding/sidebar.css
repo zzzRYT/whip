@@ -6,7 +6,7 @@
   z-index: 111;
   width: var(--sidebar-w);
   overflow: hidden; /* 컨테이너 크기가 줄어들 때 내부 요소 숨김 */
-  transition: width 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* 워크스페이스 정보 및 열고 닫기 토글 */
