@@ -9,17 +9,45 @@
   overflow: hidden;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
     var(--panel-2);
+  transition: grid-template-columns 0.3s ease;
+}
+.app.is-collapsed {
+  grid-template-columns: 0 1fr;
 }
 
 /* Sidebar */
 .sidebar {
   grid-column: 1;
   grid-row: 1 / span 2;
-  background-color: rgb(205, 217, 228);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+    var(--panel);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  z-index: var(--z-sidebar);
+  transition: transform 0.3s ease;
+}
+.app.is-collapsed .sidebar {
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.sidebar .inner {
+  position: relative;
+  padding: 8px 6px 16px 6px;
+  height: 100%;
+  overflow: auto;
+}
+
+.collapse-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+}
+.collapse-btn:hover {
+  background: var(--panel-3);
 }
 
 .user-box {
@@ -45,7 +73,23 @@
 .navbar {
   grid-column: 2;
   grid-row: 1;
-  background-color: darkgray;
+}
+
+.expand-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+}
+.expand-btn:hover {
+  background: var(--panel-3);
+}
+.expand-btn {
+  display: none;
+}
+.app.is-collapsed .expand-btn {
+  display: block;
 }
 
 /* Main */
