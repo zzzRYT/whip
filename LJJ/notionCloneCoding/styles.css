@@ -19,6 +19,7 @@
   --sidebar-w: 260px;
   --navbar-h: 56px;
   --button-hover: rgba(255, 255, 255, 0.055);
+  --button-hover-dark: rgba(255, 255, 255, 0.075);
 
   /* Markdown/editor borders (tone-down) */
   --md-border: #2d3340;

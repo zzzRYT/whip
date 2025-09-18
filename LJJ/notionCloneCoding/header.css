@@ -5,3 +5,52 @@
   height: 100%;
   background-color: var(--panel);
 }
+
+.left-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-left: 1rem;
+}
+
+.folder-history {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.folder-history button {
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  color: var(--text);
+  padding: 5px 8px;
+}
+
+.folder-history button:hover {
+  background-color: var(--button-hover-dark);
+}
+
+.right-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 1rem;
+}
+
+.right-header button {
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  color: var(--text);
+  padding: 5px 8px;
+}
+
+.right-header button:hover {
+  background-color: var(--button-hover-dark);
+}
