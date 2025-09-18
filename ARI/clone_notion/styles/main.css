@@ -73,8 +73,24 @@
 .navbar {
   grid-column: 2;
   grid-row: 1;
+  position: sticky;
+  top: 0;
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+  color: var(--text);
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .expand-btn {
   width: 34px;
   height: 34px;
@@ -89,6 +105,30 @@
   display: none;
 }
 .app.is-collapsed .expand-btn {
+  display: block;
+}
+.breadcrumbs {
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  padding-left: 6px;
+}
+
+.row-end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.edit-time {
+  color: var(--muted);
+}
+.star-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: var(--text);
+}
+.star-btn > img {
   display: block;
 }
 
