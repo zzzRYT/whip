@@ -28,10 +28,11 @@
   width: 100%;
   justify-content: space-between;
   padding: 5px;
+  border-radius: 8px;
 }
 
 .side-profile:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
 }
 
 .workspace-info {
@@ -67,15 +68,11 @@
 }
 
 .nav-toggle-button:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
 }
 
 .sidebar-open-toggle {
-  position: absolute;
-  top: 1rem;
-  left: 0;
   background-color: rgb(32, 32, 32);
-  z-index: 110;
 }
 
 .sidebar-open-toggle button {
@@ -89,7 +86,7 @@
 }
 
 .sidebar-open-toggle:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
 }
 
 /* 손쉬운 접근성 */
@@ -111,7 +108,7 @@
 }
 
 .easy-side-controls li:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
   border-radius: 0.375rem;
 }
 
@@ -148,7 +145,7 @@
 }
 
 .add-page-button-container:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
   border-radius: 0.375rem;
   cursor: pointer;
 }
