@@ -6,7 +6,7 @@
   grid-template-rows: var(--navbar-h) 1fr;
   height: 100dvh;
   width: 100vw;
-  overflow: hidden;
+  overflow: visible;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
     var(--panel-2);
   transition: grid-template-columns 0.3s ease;
@@ -26,6 +26,7 @@
   overflow: hidden;
   z-index: var(--z-sidebar);
   transition: transform 0.3s ease;
+  font-weight: 500;
 }
 .app.is-collapsed .sidebar {
   transform: translateX(-100%);
@@ -40,7 +41,7 @@
 
 .collapse-btn {
   position: absolute;
-  top: 10px;
+  top: 6px;
   right: 10px;
   width: 34px;
   height: 34px;
@@ -51,22 +52,73 @@
 }
 
 .user-box {
-  width: 240px;
-  height: 50px;
-  background-color: aliceblue;
-  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 16px;
+  margin: 8px;
+}
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  box-shadow: var(--shadow);
+}
+.user-meta {
+  display: flex;
+  flex-direction: column;
+}
+.user-meta small {
+  color: var(--muted-subtle);
 }
 
 .nav-items {
-  width: 240px;
-  height: 100px;
-  background-color: aliceblue;
+  padding: 5px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 8px;
+  color: var(--muted);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.item img {
+  width: 22px;
+  height: 22px;
+}
+.item:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+.addPage,
+.item.addPage:hover {
+  color: var(--muted-subtle);
+}
+.addPage img {
+  width: 16px;
+  height: 16px;
+  padding: 3px;
+  box-sizing: content-box;
 }
 
-.group {
-  width: 240px;
-  height: 300px;
-  background-color: aliceblue;
+.group-title {
+  font-weight: 600;
+  color: var(--muted-subtle);
+  letter-spacing: 0.3px;
+  font-size: 12px;
+  padding-inline: 8px;
+  padding-top: 8px;
+}
+.favorite-list {
+  padding: 6px;
+}
+.doc-list {
+  padding: 6px;
 }
 
 /* Navbar */
@@ -80,7 +132,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 14px;
-  background: var(--panel-2);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
   color: var(--text);
@@ -117,10 +169,11 @@
 .row-end {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
 }
 .edit-time {
-  color: var(--muted);
+  color: var(--muted-subtle);
 }
 .star-btn {
   width: 34px;
@@ -137,7 +190,7 @@
   height: 100%;
   grid-column: 2;
   grid-row: 2;
-  background-color: rgb(214, 241, 214);
+  background-color: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,18 +200,18 @@
 .doc-header {
   height: 80px;
   width: 80%;
-  background-color: darkseagreen;
+  background-color: var(--panel-3);
   margin-top: 20px;
 }
 
 .toolbar {
   width: 80%;
   height: 40px;
-  background-color: darkseagreen;
+  background-color: var(--panel-3);
 }
 
 .editor {
   width: 80%;
   height: 500px;
-  background-color: darkseagreen;
+  background-color: var(--panel-3);
 }

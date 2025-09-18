@@ -1,11 +1,12 @@
 :root {
   /* Default: LIGHT theme */
-  --bg: #f6f7fb;
-  --panel: #ffffff;
+  --bg: #ffffff;
+  --panel: #f9f8f7;
   --panel-2: #f7f7fb;
-  --panel-3: #f0f2f7;
+  --panel-3: #f1f0ef;
   --text: #1c1f29;
-  --muted: #4b5563;
+  --muted: #5f5e5b;
+  --muted-subtle: #91918e;
   --primary: #2563eb;
   --accent: #06b6d4;
   --border: #e5e7eb;
@@ -15,7 +16,7 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   --radius: 12px;
   --sidebar-w: 260px;
-  --navbar-h: 56px;
+  --navbar-h: 44px;
 
   /* Markdown/editor borders (tone-down) */
   --md-border: #d1d5db;
@@ -59,8 +60,9 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
-    Cantarell, Noto Sans, sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji",
+    Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
