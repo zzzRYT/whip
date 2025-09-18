@@ -8,14 +8,76 @@
   </head>
   <body>
     <div id="app">
-      <!-- 사이드 바 -->
-      <aside class="sidebar">sidebar</aside>
-
       <!-- 헤더 -->
-      <header class="header">header</header>
+      <header class="header">
+        <div class="sidebar-open-toggle">
+          <button class="nav-toggle-button" aria-label="네비 토글">
+            <svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 20 20" class="arrowChevronDoubleForward directional-icon" style="width: 22px; height: 22px; display: block; fill: rgb(230, 229, 227); flex-shrink: 0;"><path d="m5.492 4.158 5.4 5.4a.625.625 0 0 1 0 .884l-5.4 5.4a.625.625 0 1 1-.884-.884L9.566 10 4.608 5.042a.625.625 0 1 1 .884-.884"></path><path d="m16.392 10.442-5.4 5.4a.625.625 0 0 1-.884-.884L15.066 10l-4.958-4.958a.625.625 0 0 1 .884-.884l5.4 5.4a.625.625 0 0 1 0 .884"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- 사이드 바 -->
+      <aside class="sidebar">
+        <nav class="side-menu">
+          <section class="side-profile">
+             <div class="workspace-info">
+              <div class="workspace-logo-container">
+                <img src="#" alt="G"></img>
+              </div>
+              <h2>Goorm KDX</h2>
+             </div>
+             <div class="nav-controls-buttons">
+              <button class="nav-toggle-button" aria-label="네비 토글">
+                <svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 20 20" class="arrowChevronDoubleBackward directional-icon" style="width: 22px; height: 22px; display: block; fill: rgb(230, 229, 227); flex-shrink: 0;"><path d="M3.608 10.442a.625.625 0 0 1 0-.884l5.4-5.4a.625.625 0 0 1 .884.884L4.934 10l4.958 4.958a.625.625 0 1 1-.884.884z"></path><path d="m14.508 4.158-5.4 5.4a.625.625 0 0 0 0 .884l5.4 5.4a.625.625 0 1 0 .884-.884L10.434 10l4.958-4.958a.625.625 0 1 0-.884-.884"></path></svg>
+              </button>
+             </div>
+          </section>
+          <section class="easy-side-controls">
+            <ul>
+              <li>
+                <svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 20 20" class="magnifyingGlass" style="width: 22px; height: 22px; display: block; fill: rgb(168, 164, 156); flex-shrink: 0;"><path d="M8.875 2.625a6.25 6.25 0 1 0 3.955 11.09l3.983 3.982a.625.625 0 1 0 .884-.884l-3.983-3.982a6.25 6.25 0 0 0-4.84-10.205m-5 6.25a5 5 0 1 1 10 0 5 5 0 0 1-10 0"></path></svg>
+                <span>검색</span>
+              </li>
+              <li>
+                <svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 20 20" class="home" style="width: 22px; height: 22px; display: block; fill: rgb(168, 164, 156); flex-shrink: 0;"><path d="M9.08 3.341a1.625 1.625 0 0 1 1.84 0l5.875 4.035c.441.304.705.805.705 1.34v6.034a2.125 2.125 0 0 1-2.125 2.125h-2.716a1.625 1.625 0 0 1-1.625-1.625v-4.065H8.967v4.065c0 .898-.728 1.625-1.625 1.625H4.625A2.125 2.125 0 0 1 2.5 14.75V8.716c0-.535.264-1.036.705-1.34zm1.132 1.03a.375.375 0 0 0-.424 0L3.913 8.407a.38.38 0 0 0-.163.309v6.034c0 .483.392.875.875.875h2.716a.375.375 0 0 0 .375-.375v-4.19c0-.621.503-1.125 1.125-1.125h2.319c.62 0 1.124.504 1.124 1.125v4.19c0 .207.168.375.375.375h2.716a.875.875 0 0 0 .875-.875V8.716c0-.124-.06-.24-.163-.31z"></path></svg>
+                <span>홈</span>
+              </li>
+              <li>
+                <svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 20 20" class="inbox" style="width: 22px; height: 22px; display: block; fill: rgb(168, 164, 156); flex-shrink: 0;"><path d="M6.303 3.625c-.71 0-1.374.355-1.768.946L2.232 8.025c-.233.35-.357.76-.357 1.18v5.045c0 1.174.951 2.125 2.125 2.125h12a2.125 2.125 0 0 0 2.125-2.125V9.204c0-.42-.124-.83-.357-1.179l-2.303-3.454a2.13 2.13 0 0 0-1.768-.946zm-.728 1.64a.88.88 0 0 1 .728-.39h7.394c.293 0 .566.146.728.39l2.303 3.454a1 1 0 0 1 .083.156h-4.702a.625.625 0 0 0-.625.625v.476a1.484 1.484 0 0 1-2.968 0V9.5a.625.625 0 0 0-.625-.625H3.189a1 1 0 0 1 .083-.156zm-2.45 4.86H7.27a2.734 2.734 0 0 0 5.46 0h4.145v4.125a.875.875 0 0 1-.875.875H4a.875.875 0 0 1-.875-.875z"></path></svg>
+                <span>수신함</span>
+              </li>
+            </ul>
+          </section>
+          <section class="side-favorite">
+            <div>
+              <h3>즐겨찾기</h3>
+              <div class="favorite-items"></div>
+            </div>
+          </section>
+          <section class="workspace">
+            <div>
+              <h3>워크스페이스</h3>
+              <div class="workspace-items"></div>
+              <div class="add-page-button-container">
+                <svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" class="plusSmall" style="width: 16px; height: 16px; display: block; fill: rgb(168, 164, 156); flex-shrink: 0;"><path d="M8 2.74a.66.66 0 0 1 .66.66v3.94h3.94a.66.66 0 0 1 0 1.32H8.66v3.94a.66.66 0 0 1-1.32 0V8.66H3.4a.66.66 0 0 1 0-1.32h3.94V3.4A.66.66 0 0 1 8 2.74"></path></svg>
+                <span>새 페이지 추가</span>
+              </div>
+            </div>
+          </section>
+          <section class="personal-space">
+            <div>
+              <h3>개인 페이지</h3>
+              <div class="personal-space-items"></div>
+            </div>
+
+          </section>
+        </nav>
+      </aside>
 
       <!-- 메인 -->
       <main class="contents">contents</main>
     </div>
+    <script src="sidebar.js" type="module"></script>
   </body>
 </html>
