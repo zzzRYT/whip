@@ -19,9 +19,47 @@ function toggleSidebarState() {
 }
 
 // 두 토글 버튼에 클릭 이벤트 리스너를 추가합니다.
-allToggleButtons.forEach(button => {
+allToggleButtons.forEach((button) => {
   button.addEventListener('click', toggleSidebarState);
 });
 
 // 초기 상태: 사이드바가 보이므로 열기 버튼은 숨깁니다.
 openToggleButton.style.display = 'none';
+
+/** 워크스페이스 불러오기 */
+
+const workspaceItems = document.querySelector('.workspace-items');
+
+function getWorkspaces() {
+  const searchStorage = localStorage.getItem('workspaces');
+  const workspaces = JSON.parse(searchStorage) || [];
+  return workspaces;
+}
+
+const addWorkspaceButton = document.querySelector('.add-page-button-container');
+addWorkspaceButton.addEventListener('click', () =>
+  addWorkspace('새로운 어쩌고')
+);
+
+function addWorkspace(name) {
+  const workspaces = getWorkspaces();
+  workspaces.push({ name });
+  localStorage.setItem('workspaces', JSON.stringify(workspaces));
+  const workspaceDiv = document.createElement('div');
+  workspaceDiv.className = 'workspace-item';
+  workspaceDiv.textContent = name || `워크스페이스 ${index + 1}`;
+  workspaceItems.appendChild(workspaceDiv);
+}
+
+function renderWorkspaces() {
+  const workspaces = getWorkspaces();
+
+  workspaces.forEach((workspace, index) => {
+    const workspaceDiv = document.createElement('div');
+    workspaceDiv.className = 'workspace-item';
+    workspaceDiv.textContent = workspace.name || `워크스페이스 ${index + 1}`;
+    workspaceItems.appendChild(workspaceDiv);
+  });
+}
+
+renderWorkspaces();
