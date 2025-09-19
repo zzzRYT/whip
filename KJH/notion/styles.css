@@ -94,8 +94,8 @@ button {
     z-index: var(--z-sidebar); /*--z-sidebar:1000*/
     transition: transform 0.25s ease; /*자연스런 슬라이딩*/
 }
-
 .sidebar .inner { 
     position: relative;
     padding : 8ox 6px 16px 6px;
+    color:red;
 }  
