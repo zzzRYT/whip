@@ -10,21 +10,91 @@
     <div class="app">
       <!-- Sidebar -->
       <aside id="sidebar" class="sidebar">
-        <!-- User -->
-        <div class="user-box">User 영역</div>
+        <div class="inner">
+          <button
+            id="collapseBtn"
+            class="collapse-btn"
+            type="button"
+            aria-expanded="true"
+            aria-label="사이드바 닫기 버튼"
+          >
+            <img src="./assets/icons/collapse-icon.svg" alt="사이드바 닫기" />
+          </button>
 
-        <!-- Actions -->
-        <div class="nav-items">Action 영역</div>
+          <!-- User -->
+          <div class="user-box">
+            <div class="avatar"></div>
+            <div class="user-meta">
+              <strong>bboroin</strong>
+              <small>bboroin917@gmail.com</small>
+            </div>
+          </div>
 
-        <!-- Documents -->
-        <div class="group">Documents 영역</div>
+          <!-- Actions -->
+          <div class="nav-items">
+            <div class="item" id="actionSearch">
+              <img src="./assets/icons/search-icon.svg" alt="검색" />
+              <span>검색</span>
+            </div>
+            <div class="item" id="actionHome">
+              <img src="./assets/icons/home-icon.svg" alt="홈" />
+              <span>홈</span>
+            </div>
+          </div>
 
-        <!-- Etc -->
-        <div class="nav-items">Etc 영역</div>
+          <!-- Documents -->
+          <div class="group-title">즐겨찾기</div>
+          <div class="favorite-list"></div>
+
+          <div class="group-title">개인 페이지</div>
+          <div class="nav-items">
+            <div class="item addPage" id="actionAddPage">
+              <img src="./assets/icons/plus-small-icon.svg" alt="페이지 추가" />
+              <span>새 페이지 추가</span>
+            </div>
+          </div>
+          <div id="docListRoot" class="doc-list"></div>
+
+          <!-- Etc -->
+          <div class="nav-items">
+            <div class="item" id="actionHome">
+              <img src="./assets/icons/setting-icon.svg" alt="설정" />
+              <span>설정</span>
+            </div>
+            <div class="item" id="actionHome">
+              <img src="./assets/icons/trash-icon.svg" alt="휴지통" />
+              <span>휴지통</span>
+            </div>
+          </div>
+        </div>
       </aside>
 
       <!-- Navbar -->
-      <header class="navbar">Navbar 영역</header>
+      <header class="navbar">
+        <div class="row">
+          <button
+            id="expandBtn"
+            class="expand-btn"
+            type="button"
+            aria-expanded="false"
+            aria-label="사이드바 열기 버튼"
+          >
+            <img src="./assets/icons/expand-icon.svg" alt="사이드바 열기" />
+          </button>
+          <div id="breadcrumbs" class="breadcrumbs">Welcome</div>
+        </div>
+        <div class="row-end">
+          <div class="edit-time">9월 17일 편집</div>
+          <button
+            id="starBtn"
+            class="star-btn"
+            type="button"
+            aria-label="즐겨찾기 버튼"
+          >
+            <img src="./assets/icons/star-icon.svg" alt="즐겨찾기" />
+          </button>
+        </div>
+      </header>
 
       <!-- Main -->
       <main>
@@ -40,5 +110,6 @@
         </div>
       </main>
     </div>
+    <script type="module" src="./scripts/main.js"></script>
   </body>
 </html>
