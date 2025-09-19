@@ -6,7 +6,7 @@
   z-index: 111;
   width: var(--sidebar-w);
   overflow: hidden; /* 컨테이너 크기가 줄어들 때 내부 요소 숨김 */
-  transition: width 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* 워크스페이스 정보 및 열고 닫기 토글 */
@@ -28,10 +28,11 @@
   width: 100%;
   justify-content: space-between;
   padding: 5px;
+  border-radius: 8px;
 }
 
 .side-profile:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
 }
 
 .workspace-info {
@@ -67,15 +68,11 @@
 }
 
 .nav-toggle-button:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
 }
 
 .sidebar-open-toggle {
-  position: absolute;
-  top: 1rem;
-  left: 0;
   background-color: rgb(32, 32, 32);
-  z-index: 110;
 }
 
 .sidebar-open-toggle button {
@@ -89,7 +86,7 @@
 }
 
 .sidebar-open-toggle:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
 }
 
 /* 손쉬운 접근성 */
@@ -111,7 +108,7 @@
 }
 
 .easy-side-controls li:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
   border-radius: 0.375rem;
 }
 
@@ -137,6 +134,28 @@
   color: #9b9b9b;
 }
 
+.work-space-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.workspace-item {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 0.5rem;
+  gap: 8px;
+  padding: 5px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.workspace-item:hover {
+  background-color: var(--button-hover);
+  border-radius: 0.375rem;
+}
+
 .add-page-button-container {
   display: flex;
   justify-content: start;
@@ -148,7 +167,7 @@
 }
 
 .add-page-button-container:hover {
-  background-color: rgb(255, 255, 255, 0.055);
+  background-color: var(--button-hover);
   border-radius: 0.375rem;
   cursor: pointer;
 }
@@ -169,4 +188,41 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 0.5rem;
+}
+
+/* 새 페이지 생성 모달 */
+.create-workspace-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-modal);
+}
+
+.create-workspace-modal-contents {
+  width: 50%;
+  height: 50%;
+  background-color: rgb(32, 32, 32);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+}
+
+.new-page-button-container {
+  border: 1px solid var(--muted);
+  background-color: inherit;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  width: 100%;
+  color: var(--muted);
+  fill: var(--muted);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  cursor: pointer;
 }
