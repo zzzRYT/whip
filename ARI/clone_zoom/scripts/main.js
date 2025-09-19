@@ -20,29 +20,45 @@ document.addEventListener("mousemove", () => {
 
 // 본인 오디오/비디오 on/off 토글 기능
 const micBtn = document.querySelector(".btn-mic");
-const micIcon = document.querySelector(".btn-mic .icon-mic");
+const cardMicIcon = document.querySelector(".btn-mic .icon-mic");
 const videoBtn = document.querySelector(".btn-video");
-const videoIcon = document.querySelector(".btn-video .icon-video");
+const cardVideoIcon = document.querySelector(".btn-video .icon-video");
 const myCard = document.querySelector(".participant--self");
+const myPanel = document.querySelector(".panel__participants--self");
+const panelMicIcon = myPanel?.querySelector(".panel-mic");
+const panelVideoIcon = myPanel?.querySelector(".panel-video");
 
-if (micBtn && micIcon) {
-  let micOff = false;
+let micOff = false;
+let videoOff = false;
+
+if (micBtn && cardMicIcon) {
   micBtn.addEventListener("click", () => {
     micOff = !micOff;
-    micIcon.src = micOff
+    cardMicIcon.src = micOff
       ? "./assets/icons/icon-mic-off.svg"
       : "./assets/icons/icon-mic.svg";
+
+    if (panelMicIcon) {
+      panelMicIcon.src = micOff
+        ? "./assets/icons/icon-mic-off.svg"
+        : "./assets/icons/icon-mic-on.svg";
+    }
     myCard.classList.toggle("is-mic-off", micOff);
   });
 }
 
-if (videoBtn && videoIcon) {
-  let videoOff = false;
+if (videoBtn && cardVideoIcon) {
   videoBtn.addEventListener("click", () => {
     videoOff = !videoOff;
-    videoIcon.src = videoOff
+    cardVideoIcon.src = videoOff
       ? "./assets/icons/icon-video-off.svg"
       : "./assets/icons/icon-video.svg";
+
+    if (panelVideoIcon) {
+      panelVideoIcon.src = videoOff
+        ? "./assets/icons/icon-video-off.svg"
+        : "./assets/icons/icon-video-on.svg";
+    }
     myCard.classList.toggle("is-video-off", videoOff);
   });
 }

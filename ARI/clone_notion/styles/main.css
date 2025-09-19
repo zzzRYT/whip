@@ -1,0 +1,80 @@
+@import url(./base.css);
+
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: var(--navbar-h) 1fr;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+    var(--panel-2);
+}
+
+/* Sidebar */
+.sidebar {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  background-color: rgb(205, 217, 228);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-box {
+  width: 240px;
+  height: 50px;
+  background-color: aliceblue;
+  margin-top: 10px;
+}
+
+.nav-items {
+  width: 240px;
+  height: 100px;
+  background-color: aliceblue;
+}
+
+.group {
+  width: 240px;
+  height: 300px;
+  background-color: aliceblue;
+}
+
+/* Navbar */
+.navbar {
+  grid-column: 2;
+  grid-row: 1;
+  background-color: darkgray;
+}
+
+/* Main */
+.doc-canvas {
+  height: 100%;
+  grid-column: 2;
+  grid-row: 2;
+  background-color: rgb(214, 241, 214);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.doc-header {
+  height: 80px;
+  width: 80%;
+  background-color: darkseagreen;
+  margin-top: 20px;
+}
+
+.toolbar {
+  width: 80%;
+  height: 40px;
+  background-color: darkseagreen;
+}
+
+.editor {
+  width: 80%;
+  height: 500px;
+  background-color: darkseagreen;
+}

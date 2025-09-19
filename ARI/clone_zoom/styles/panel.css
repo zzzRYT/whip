@@ -86,6 +86,7 @@
 .panel__participants--control {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 .panel__participants--control > img {
   width: 18px;
