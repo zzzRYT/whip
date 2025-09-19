@@ -1,0 +1,101 @@
+:root {
+  /* ===== Default: DARK theme (기본 테마) ===== */
+  --bg: #0b0c0f;
+  --panel: #121318;
+  --panel-2: #181a20;
+  --panel-3: #1f232b;
+  --text: #e6e8ef;
+  --muted: #9aa1ae;
+  --primary: #6ea8fe;
+  --accent: #5eead4;
+  --border: #2a2f39;
+  --danger: #ff6b6b;
+  --success: #7ad69f;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --radius: 12px;
+  --sidebar-w: 260px;
+  --navbar-h: 56px;
+
+  /* Markdown/editor borders (tone-down) */
+  --md-border: #2d3340;
+  --md-border-focus: #3b4354;
+  --md-shadow-focus: 0 0 0 3px rgba(110, 168, 254, 0.15);
+
+  /* layers */
+  --z-sidebar: 1000;
+  --z-dropdown: 10150;
+  --z-popover: 10160;
+  --z-overlay: 10170;
+  --z-modal: 10180;
+  --z-toast: 10190;
+  --z-peek: 10200;
+}
+
+/* ===== Explicit LIGHT theme (체크박스로 강제 전환) html data-theme="light" 속성 붙으면 적용 // js : setAttribute("data-theme", "light") 테마전환 // 토큰 변환 스타일 ===== */
+:root[data-theme="light"] {
+  --bg: #f6f7fb;
+  --panel: #ffffff;
+  --panel-2: #f7f7fb;
+  --panel-3: #f0f2f7;
+  --text: #1c1f29;
+  --muted: #4b5563;
+  --primary: #2563eb;
+  --accent: #06b6d4;
+  --border: #e5e7eb;
+
+  --md-border: #d1d5db;
+  --md-border-focus: #bfc6d1;
+  --md-shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+    Cantarell, Noto Sans, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  /*폰트랜더링 최적화*/
+  -webkit-font-smoothing: antialiased;  /*브라우저 글꼴 매끄럽게*/
+  -moz-osx-font-smoothing: grayscale;   /*크롬 사파리 등 회색조 안티앨리어싱*/
+  text-rendering: optimizeLegibility;   /*고급폰트*/
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+button {
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* === App Grid Layout === */
+.app{
+    display:grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    grid-template-rows: var(--navbar-h) 1fr;
+    height: 100dvh; /* dvh 동적 뷰포트 높이를 안정적 전체화면 확보를 위해 반영*/
+    width: 100vw;
+}
+
+/* === Sidebar === */
+.sidebar {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    position: relative;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--panel);
+    border-right: 1px solid var(--border);
+    overflow: visible; /*드롭다운, 팝오버 UI 대응*/
+    z-index: var(--z-sidebar); /*--z-sidebar:1000*/
+    transition: transform 0.25s ease; /*자연스런 슬라이딩*/
+}
+.sidebar .inner { 
+    position: relative;
+    padding : 8ox 6px 16px 6px;
+    color:red;
+}  
