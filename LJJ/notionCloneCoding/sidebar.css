@@ -207,7 +207,7 @@
 .create-workspace-modal-contents {
   width: 50%;
   height: 50%;
-  background-color: var(--panel);
+  background-color: rgb(32, 32, 32);
   padding: 1rem 2rem;
   border-radius: 12px;
 }

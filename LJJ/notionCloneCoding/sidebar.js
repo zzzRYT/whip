@@ -1,3 +1,5 @@
+import { getRandomId, navigateTo } from './utils.js';
+
 const app = document.querySelector('#app');
 const sidebar = document.querySelector('.sidebar');
 const openToggleButton = document.querySelector('.sidebar-open-toggle');
@@ -35,15 +37,27 @@ const addWorkspaceButton = document.querySelector('.add-page-button-container');
 addWorkspaceButton.addEventListener('click', () => isToggleCreateModal());
 
 function renderWorkspaces() {
+  workspaceItems.innerHTML = '';
   const workspaces = getWorkspaces();
 
-  workspaces.forEach((workspace, index) => {
+  workspaces.forEach((workspace) => {
     const workspaceDiv = document.createElement('div');
     workspaceDiv.className = 'workspace-item';
-    workspaceDiv.textContent = workspace.name || `워크스페이스 ${index + 1}`;
+    workspaceDiv.id = workspace.id;
+    workspaceDiv.textContent = workspace.name || `새 페이지`;
     workspaceItems.appendChild(workspaceDiv);
   });
 }
+
+workspaceItems.addEventListener('click', (e) => {
+  const workspaceItem = e.target.closest('.workspace-item');
+  if (workspaceItem) {
+    const { id } = workspaceItem;
+    if (id) {
+      navigateTo(id);
+    }
+  }
+});
 
 renderWorkspaces();
 
@@ -79,10 +93,15 @@ createNewPageButton.addEventListener('click', () => {
 
 function addWorkspace(name) {
   const workspaces = getWorkspaces();
-  workspaces.push({ name });
+
+  const newPage = {
+    id: getRandomId(),
+    name,
+    contents: {},
+    parent: null,
+  };
+
+  workspaces.push(newPage);
   localStorage.setItem('workspaces', JSON.stringify(workspaces));
-  const workspaceDiv = document.createElement('div');
-  workspaceDiv.className = 'workspace-item';
-  workspaceDiv.textContent = name || `워크스페이스 ${index + 1}`;
-  workspaceItems.appendChild(workspaceDiv);
+  renderWorkspaces();
 }
