@@ -32,19 +32,7 @@ function getWorkspaces() {
 }
 
 const addWorkspaceButton = document.querySelector('.add-page-button-container');
-addWorkspaceButton.addEventListener('click', () =>
-  addWorkspace('새로운 어쩌고')
-);
-
-function addWorkspace(name) {
-  const workspaces = getWorkspaces();
-  workspaces.push({ name });
-  localStorage.setItem('workspaces', JSON.stringify(workspaces));
-  const workspaceDiv = document.createElement('div');
-  workspaceDiv.className = 'workspace-item';
-  workspaceDiv.textContent = name || `워크스페이스 ${index + 1}`;
-  workspaceItems.appendChild(workspaceDiv);
-}
+addWorkspaceButton.addEventListener('click', () => isToggleCreateModal());
 
 function renderWorkspaces() {
   const workspaces = getWorkspaces();
@@ -58,3 +46,43 @@ function renderWorkspaces() {
 }
 
 renderWorkspaces();
+
+/** workspace 생성 모달 */
+
+const createWorkspaceModal = document.querySelector('.create-workspace-modal');
+
+function isToggleCreateModal() {
+  addWorkspaceButton.classList.toggle('is-create');
+
+  if (addWorkspaceButton.classList.contains('is-create')) {
+    createWorkspaceModal.style.display = 'flex';
+  } else {
+    createWorkspaceModal.style.display = 'none';
+  }
+}
+
+createWorkspaceModal.addEventListener('click', (e) => {
+  if (e.target.className !== 'create-workspace-modal') {
+    return;
+  }
+  isToggleCreateModal();
+});
+
+const createNewPageButton = document.querySelector(
+  '.new-page-button-container'
+);
+
+createNewPageButton.addEventListener('click', () => {
+  addWorkspace('새 페이지');
+  isToggleCreateModal();
+});
+
+function addWorkspace(name) {
+  const workspaces = getWorkspaces();
+  workspaces.push({ name });
+  localStorage.setItem('workspaces', JSON.stringify(workspaces));
+  const workspaceDiv = document.createElement('div');
+  workspaceDiv.className = 'workspace-item';
+  workspaceDiv.textContent = name || `워크스페이스 ${index + 1}`;
+  workspaceItems.appendChild(workspaceDiv);
+}
