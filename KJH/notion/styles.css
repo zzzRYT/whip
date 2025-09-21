@@ -47,13 +47,16 @@
   --md-border-focus: #bfc6d1;
   --md-shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
+
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -62,12 +65,14 @@ body {
     Cantarell, Noto Sans, sans-serif;
   font-size: 14px;
   line-height: 1.45;
+
   /*폰트랜더링 최적화*/
-  -webkit-font-smoothing: antialiased;  /*브라우저 글꼴 매끄럽게*/
-  -moz-osx-font-smoothing: grayscale;   /*크롬 사파리 등 회색조 안티앨리어싱*/
-  text-rendering: optimizeLegibility;   /*고급폰트*/
+  -webkit-font-smoothing: antialiased; /*브라우저 글꼴 매끄럽게*/
+  -moz-osx-font-smoothing: grayscale; /*크롬 사파리 등 회색조 안티앨리어싱*/
+  text-rendering: optimizeLegibility; /*고급폰트*/
   transition: background-color 0.25s ease, color 0.25s ease;
 }
+
 button {
   border: none;
   background: none;
@@ -75,27 +80,129 @@ button {
 }
 
 /* === App Grid Layout === */
-.app{
-    display:grid;
-    grid-template-columns: var(--sidebar-w) 1fr;
-    grid-template-rows: var(--navbar-h) 1fr;
-    height: 100dvh; /* dvh 동적 뷰포트 높이를 안정적 전체화면 확보를 위해 반영*/
-    width: 100vw;
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: var(--navbar-h) 1fr;
+  height: 100dvh; /* dvh 동적 뷰포트 높이를 안정적 전체화면 확보를 위해 반영*/
+  width: 100vw;
 }
+
+/* 줄 넘버 동일하게 하기 : 누락된 라인 있는지 체크, CSS 작성 완료 후 삭제 예정*/
 
 /* === Sidebar === */
 .sidebar {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    position: relative;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--panel);
-    border-right: 1px solid var(--border);
-    overflow: visible; /*드롭다운, 팝오버 UI 대응*/
-    z-index: var(--z-sidebar); /*--z-sidebar:1000*/
-    transition: transform 0.25s ease; /*자연스런 슬라이딩*/
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+    var(--panel);
+  border-right: 1px solid var(--border);
+  overflow: visible; /*드롭다운, 팝오버 UI 대응*/
+  z-index: var(--z-sidebar); /*--z-sidebar:1000*/
+  transition: transform 0.25s ease; /*자연스런 슬라이딩*/
 }
-.sidebar .inner { 
-    position: relative;
-    padding : 8ox 6px 16px 6px;
-    color:red;
-}  
+
+.sidebar.is-collapsed {
+  transform: translateX(-100%); /*자연스럽게 좌측으로 사라짐*/
+}
+
+.sidebar .inner {
+  position: relative;
+  padding: 8px 6px 16px 6px;
+  height: 100%;
+  overflow: auto; /*없으면 문서 많을 때 잘림*/
+}
+.collapse-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  backdrop-filter: blur(4px); /*반투명, 흐림 효과*/
+}
+.collapse-btn:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+
+.resize-handle {
+  /*사이드바 오른쪽 드래그 핸들*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  cursor: ew-resize; /*좌우 양방향 화살표 모양*/
+  background: linear-gradient(
+    /* 미묘하게 얇은 선느낌 */ 90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  opacity: 0.6;
+}
+.resize-handle:hover {
+  opacity: 1;
+}
+
+/* Floating peek button 사이드바 접혔을때 peek 햄버거 버튼 */
+.peek-btn {
+  /*스크롤해도 항상 같은 자리*/
+  position: fixed;
+  left: 8px;
+  top: calc(var(--navbar-h) + 10px);
+  width: 36px;
+  height: 36px;
+  display: none; /*원래는 안보였다가*/
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  z-index: var(--z-peek);
+  cursor: pointer;
+}
+.sidebar.is-collapsed ~ .peek-btn {
+  /* 사이드바 닫혔을때만 나오게*/
+  display: grid;
+}
+
+/* Navbar (contrast improved)  */
+.navbar {
+  /*스크롤 상관 없이 항상 화면 우측 상단*/
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+  color: var(--text);
+}
+
+.breadcrumbs {
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  padding-left: 6px;
+}
+.menu-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--muted);
+}
