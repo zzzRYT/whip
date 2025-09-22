@@ -74,10 +74,8 @@
   color: var(--muted-subtle);
 }
 
-.nav-items {
-  padding: 5px;
-}
-.item {
+.item,
+.tree-row {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -93,7 +91,6 @@
 }
 .item:hover {
   background: var(--panel-3);
-  color: var(--text);
 }
 .addPage,
 .item.addPage:hover {
@@ -111,14 +108,66 @@
   color: var(--muted-subtle);
   letter-spacing: 0.3px;
   font-size: 12px;
-  padding-inline: 8px;
-  padding-top: 8px;
+  padding: 8px;
 }
 .favorite-list {
-  padding: 6px;
+  padding: 5px;
 }
 .doc-list {
-  padding: 6px;
+  padding: 5px;
+}
+
+.tree-row:hover {
+  background: var(--panel-3);
+}
+.tree-row img {
+  width: 16px;
+  height: 16px;
+}
+.doc-slot {
+  display: inline-grid;
+  place-items: center;
+}
+.doc-icon,
+.chevron {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+}
+.chevron,
+.ghost {
+  opacity: 0;
+}
+.tree-row:hover .chevron {
+  opacity: 1;
+}
+.tree-row:hover .doc-icon {
+  opacity: 0;
+  pointer-events: none;
+}
+.tree-row:hover .ghost {
+  opacity: 1;
+}
+.tree-actions {
+  display: flex;
+  margin-left: auto;
+  gap: 6px;
+  align-items: center;
+}
+.tree-actions .ghost {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+}
+.tree-actions .ghost:hover,
+.chevron:hover {
+  background: var(--panel-4);
 }
 
 .resize-handle {
