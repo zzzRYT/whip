@@ -105,6 +105,19 @@ function createTreeNode(title = "새 페이지", depth = 0) {
           <button class="ghost" type="button" aria-label="하위 페이지 추가" data-action="add-child">
             <img src="./assets/icons/plus-small-icon.svg" alt="하위 페이지 추가" />
           </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-list">
+              <button class="dropdown-item" type="button" data-menu="duplicate">
+              <img src="./assets/icons/star-icon.svg" alt="즐겨찾기" />
+              즐겨찾기에 추가</button>
+              <button class="dropdown-item" type="button" data-menu="rename">
+              <img src="./assets/icons/rename-icon.svg" alt="이름 변경" />
+              이름 바꾸기</button>
+              <button class="dropdown-item" type="button" data-menu="delete">
+              <img src="./assets/icons/trash-icon.svg" alt="휴지통" />
+              휴지통으로 이동</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="tree-children"></div>
@@ -148,7 +161,19 @@ docListRoot.addEventListener("click", (e) => {
   }
 
   if (action === "more") {
-    console.log("more clicked");
+    const actions = node.querySelector(":scope > .tree-row .tree-actions");
+    const menu = actions.querySelector(":scope > .dropdown-menu");
+    menu.classList.toggle("is-open");
+
+    document.addEventListener("click", (e) => {
+      // 드롭다운 메뉴나 "더보기" 버튼 안쪽에서 발생한 클릭이면 무시
+      if (e.target.closest(".dropdown-menu, [data-action='more']")) return;
+
+      // 열려 있는 드롭다운 모두 닫기
+      docListRoot.querySelectorAll(".dropdown-menu.is-open").forEach((el) => {
+        el.classList.remove("is-open");
+      });
+    });
     return;
   }
 });
