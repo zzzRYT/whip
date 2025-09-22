@@ -74,10 +74,8 @@
   color: var(--muted-subtle);
 }
 
-.nav-items {
-  padding: 5px;
-}
-.item {
+.item,
+.tree-row {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -93,7 +91,6 @@
 }
 .item:hover {
   background: var(--panel-3);
-  color: var(--text);
 }
 .addPage,
 .item.addPage:hover {
@@ -111,14 +108,102 @@
   color: var(--muted-subtle);
   letter-spacing: 0.3px;
   font-size: 12px;
-  padding-inline: 8px;
-  padding-top: 8px;
+  padding: 8px;
 }
 .favorite-list {
-  padding: 6px;
+  padding: 5px;
 }
+
 .doc-list {
-  padding: 6px;
+  padding-bottom: 20px;
+}
+.tree-row {
+  padding-left: calc((var(--indent, 0) + 1) * 8px);
+}
+.tree-row:hover {
+  background: var(--panel-3);
+}
+.tree-row img {
+  width: 16px;
+  height: 16px;
+}
+.doc-slot {
+  display: inline-grid;
+  place-items: center;
+}
+.doc-icon,
+.chevron {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  padding: 0;
+}
+.chevron,
+.ghost {
+  opacity: 0;
+}
+.tree-row:hover .chevron {
+  opacity: 1;
+}
+.tree-row:hover .doc-icon {
+  opacity: 0;
+  pointer-events: none;
+}
+.tree-row:hover .ghost {
+  opacity: 1;
+}
+.tree-actions {
+  display: flex;
+  margin-left: auto;
+  gap: 6px;
+  align-items: center;
+}
+.tree-actions .ghost {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+}
+.tree-actions .ghost:hover,
+.chevron:hover {
+  background: var(--panel-4);
+}
+
+.doc-list .tree-node > .tree-children {
+  display: none;
+}
+.doc-list .tree-node.is-open > .tree-children {
+  display: block;
+}
+.doc-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  cursor: ew-resize;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  opacity: 0.6;
+}
+.resize-handle:hover {
+  opacity: 1;
 }
 
 /* Navbar */
