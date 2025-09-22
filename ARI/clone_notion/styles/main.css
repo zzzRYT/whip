@@ -113,10 +113,13 @@
 .favorite-list {
   padding: 5px;
 }
-.doc-list {
-  padding: 5px;
-}
 
+.doc-list {
+  padding-bottom: 20px;
+}
+.tree-row {
+  padding-left: calc((var(--indent, 0) + 1) * 8px);
+}
 .tree-row:hover {
   background: var(--panel-3);
 }
@@ -136,6 +139,7 @@
   width: 22px;
   height: 22px;
   border-radius: 4px;
+  padding: 0;
 }
 .chevron,
 .ghost {
@@ -168,6 +172,19 @@
 .tree-actions .ghost:hover,
 .chevron:hover {
   background: var(--panel-4);
+}
+
+.doc-list .tree-node > .tree-children {
+  display: none;
+}
+.doc-list .tree-node.is-open > .tree-children {
+  display: block;
+}
+.doc-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .resize-handle {
