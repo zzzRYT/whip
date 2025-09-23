@@ -1,5 +1,6 @@
 @import './sidebar.css';
 @import './header.css';
+@import './contents.css';
 
 :root {
   /* ===== Default: DARK theme ===== */
@@ -91,8 +92,4 @@ body {
 
 .header {
   background-color: red;
-}
-
-.contents {
-  background-color: green;
 }

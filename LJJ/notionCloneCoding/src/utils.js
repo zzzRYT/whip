@@ -28,7 +28,7 @@ function getIdFromUrl() {
  * @param {string} id
  */
 function navigateTo(id) {
-  const url = `/LJJ/notionCloneCoding?id=${id}`;
+  const url = `?id=${id}`;
   const state = { id };
   history.pushState(state, '', url);
   window.dispatchEvent(new CustomEvent('urlchange'));

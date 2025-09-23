@@ -5,7 +5,7 @@ const folderHistory = document.querySelector('.folder-history');
 function updateHeaderHistory() {
   const currentId = getIdFromUrl();
   if (!currentId) {
-    folderHistory.innerHTML = '<button></button>';
+    folderHistory.innerHTML = '<button>환영합니다</button>';
     return;
   }
 
