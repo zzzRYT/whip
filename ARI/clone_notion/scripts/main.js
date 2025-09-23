@@ -130,12 +130,24 @@ addPageBtn?.addEventListener("click", () => {
   docListRoot.appendChild(node);
 });
 
+function closeDropdown() {
+  docListRoot.querySelectorAll(".dropdown-menu.is-open").forEach((el) => {
+    el.classList.remove("is-open");
+  });
+}
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".dropdown-menu, [data-action='more']")) return;
+  closeDropdown();
+});
+
 // 이벤트 위임: 토글/하위 추가/더보기
 docListRoot.addEventListener("click", (e) => {
-  const btn = e.target.closest("[data-action], .chevron");
+  const btn = e.target.closest("[data-action], .chevron, [data-menu]");
   if (!btn) return;
 
   const action = btn.dataset.action;
+  const menuAction = btn.dataset.menu;
   const node = btn.closest(".tree-node");
   if (!node) return;
 
@@ -164,16 +176,37 @@ docListRoot.addEventListener("click", (e) => {
     const actions = node.querySelector(":scope > .tree-row .tree-actions");
     const menu = actions.querySelector(":scope > .dropdown-menu");
     menu.classList.toggle("is-open");
+  }
 
-    document.addEventListener("click", (e) => {
-      // 드롭다운 메뉴나 "더보기" 버튼 안쪽에서 발생한 클릭이면 무시
-      if (e.target.closest(".dropdown-menu, [data-action='more']")) return;
+  // 드롭다운: 이름 변경
+  if (menuAction === "rename") {
+    closeDropdown();
+    const titleEl = node.querySelector(":scope > .tree-row .doc-title");
+    const oldTitle = titleEl.textContent;
 
-      // 열려 있는 드롭다운 모두 닫기
-      docListRoot.querySelectorAll(".dropdown-menu.is-open").forEach((el) => {
-        el.classList.remove("is-open");
-      });
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = oldTitle;
+    input.className = "rename-input";
+
+    titleEl.replaceWith(input);
+    input.focus();
+
+    const saveRename = () => {
+      const newTitle = input.value.trim() || oldTitle;
+      const newTitleEl = document.createElement("div");
+      newTitleEl.className = "doc-title";
+      newTitleEl.textContent = newTitle;
+      input.replaceWith(newTitleEl);
+    };
+
+    input.addEventListener("blur", saveRename, { once: true });
+    input.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") input.blur();
+      if (ev.key === "Escape") {
+        input.value = oldTitle;
+        input.blur();
+      }
     });
-    return;
   }
 });
