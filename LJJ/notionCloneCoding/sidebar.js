@@ -1,4 +1,4 @@
-import { getRandomId, navigateTo } from './utils.js';
+import { getRandomId, navigateTo, getWorkspaces } from './utils.js';
 
 const app = document.querySelector('#app');
 const sidebar = document.querySelector('.sidebar');
@@ -27,12 +27,6 @@ openToggleButton.style.display = 'none';
 
 const workspaceItems = document.querySelector('.workspace-items');
 
-function getWorkspaces() {
-  const searchStorage = localStorage.getItem('workspaces');
-  const workspaces = JSON.parse(searchStorage) || [];
-  return workspaces;
-}
-
 const addWorkspaceButton = document.querySelector('.add-page-button-container');
 addWorkspaceButton.addEventListener('click', () => isToggleCreateModal());
 
@@ -40,13 +34,42 @@ function renderWorkspaces() {
   workspaceItems.innerHTML = '';
   const workspaces = getWorkspaces();
 
+  // 1. 데이터를 트리 구조로 변환
+  const workspaceMap = new Map();
   workspaces.forEach((workspace) => {
-    const workspaceDiv = document.createElement('div');
-    workspaceDiv.className = 'workspace-item';
-    workspaceDiv.id = workspace.id;
-    workspaceDiv.textContent = workspace.name || `새 페이지`;
-    workspaceItems.appendChild(workspaceDiv);
+    workspace.children = [];
+    workspaceMap.set(workspace.id, workspace);
   });
+
+  const rootWorkspaces = [];
+  workspaces.forEach((workspace) => {
+    if (workspace.parent && workspaceMap.has(workspace.parent)) {
+      workspaceMap.get(workspace.parent).children.push(workspace);
+    } else {
+      rootWorkspaces.push(workspace);
+    }
+  });
+
+  // 2. 재귀적으로 DOM 요소 생성
+  function renderTree(items, container, depth = 0) {
+    items.forEach((item) => {
+      const workspaceDiv = document.createElement('div');
+      workspaceDiv.className = 'workspace-item';
+      workspaceDiv.id = item.id;
+      workspaceDiv.textContent = item.name || '새 페이지';
+      // 깊이에 따라 들여쓰기 적용
+      workspaceDiv.style.paddingLeft = `${depth * 15}px`;
+
+      container.appendChild(workspaceDiv);
+
+      // 자식 요소가 있으면 재귀 호출
+      if (item.children.length > 0) {
+        renderTree(item.children, container, depth + 1);
+      }
+    });
+  }
+
+  renderTree(rootWorkspaces, workspaceItems);
 }
 
 workspaceItems.addEventListener('click', (e) => {
@@ -98,7 +121,7 @@ function addWorkspace(name) {
     id: getRandomId(),
     name,
     contents: {},
-    parent: null,
+    parent: '2jwRhlPS2yva',
   };
 
   workspaces.push(newPage);
