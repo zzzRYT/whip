@@ -71,6 +71,67 @@ handle.addEventListener("mousedown", onDown);
 window.addEventListener("mousemove", onMove);
 window.addEventListener("mouseup", onUp);
 
+let pageSeq = 0;
+const pages = new Map();
+let activePageId = null;
+
+// 새 페이지 데이터 생성하고 pages에 등록
+function createPageData(title = "새 페이지", parentId = null) {
+  const id = "p" + ++pageSeq;
+  const data = { id, title, content: "", parentId };
+  pages.set(id, data);
+  return data;
+}
+
+// 사이드바 트리에서 활성 노드 표시 관리
+function setActiveNode(node) {
+  docListRoot
+    .querySelectorAll(".tree-node.is-active")
+    .forEach((n) => n.classList.remove("is-active"));
+  node.classList.add("is-active");
+}
+
+const titleInputEl = document.getElementById("titleInput");
+const breadcrumbsEl = document.getElementById("breadcrumbs");
+
+// 문서에서 제목 변경 시 : 문서-사이드바-브레드크럼 동기화
+function applyHeaderTitleToState() {
+  const node = getActiveNode();
+  if (!node) return;
+
+  const pid = node.dataset.pageId;
+  const page = pages.get(pid);
+  if (!page) return;
+
+  const newTitle = (titleInputEl.value || "").trim() || "제목 없음";
+  page.title = newTitle;
+  const titleEl = node.querySelector(":scope > .tree-row .doc-title");
+  if (titleEl) titleEl.textContent = newTitle;
+
+  updateBreadcrumbsFromActive();
+}
+
+// 실시간 동기화
+titleInputEl?.addEventListener("input", applyHeaderTitleToState);
+titleInputEl?.addEventListener("blur", applyHeaderTitleToState);
+
+// 메인 영역에 페이지 표시
+function showPage(pageId, node) {
+  const page = pages.get(pageId);
+  if (!page) return;
+
+  activePageId = pageId;
+
+  if (titleInputEl) {
+    titleInputEl.value = page.title;
+    if (typeof autoResize === "function") autoResize(titleInputEl);
+  }
+
+  if (node) setActiveNode(node);
+
+  updateBreadcrumbsFromActive();
+}
+
 const addPageBtn = document.getElementById("actionAddPage");
 const docListRoot = document.getElementById("docListRoot");
 
@@ -80,11 +141,17 @@ const ICONS = {
   page: "./assets/icons/page-default-icon.svg",
 };
 
-// 새 tree-node 생성 함수
-function createTreeNode(title = "새 페이지", depth = 0) {
+// 새 tree-node 생성
+function createTreeNode(titleOrPage = "새 페이지", depth = 0, parentId = null) {
+  const page =
+    typeof titleOrPage === "string"
+      ? createPageData(titleOrPage, parentId)
+      : titleOrPage;
+
   const node = document.createElement("div");
   node.className = "tree-node";
   node.dataset.depth = depth;
+  node.dataset.pageId = page.id;
   node.style.setProperty("--indent", depth);
 
   node.innerHTML = `
@@ -97,7 +164,7 @@ function createTreeNode(title = "새 페이지", depth = 0) {
             <img src="${ICONS.close}" alt="접기" />
           </button>
         </div>
-        <div class="doc-title">${title}</div>
+        <div class="doc-title">${page.title}</div>
         <div class="tree-actions">
           <button class="ghost" type="button" aria-label="더보기" data-action="more">
             <img src="./assets/icons/ellipsis-small-icon.svg" alt="더보기" />
@@ -126,8 +193,11 @@ function createTreeNode(title = "새 페이지", depth = 0) {
 }
 
 addPageBtn?.addEventListener("click", () => {
-  const node = createTreeNode("새 페이지", 0);
+  const page = createPageData("새 페이지");
+  const node = createTreeNode(page, 0);
   docListRoot.appendChild(node);
+
+  showPage(page.id, node);
 });
 
 function closeDropdown() {
@@ -156,7 +226,10 @@ docListRoot.addEventListener("click", (e) => {
 
   if (action === "add-child") {
     const depth = (parseInt(node.dataset.depth, 10) || 0) + 1;
-    const childNode = createTreeNode("새 페이지", depth);
+    const parentId = node.dataset.pageId;
+    const childPage = createPageData("새 페이지", parentId);
+
+    const childNode = createTreeNode(childPage, depth, parentId);
     children.appendChild(childNode);
 
     node.classList.add("is-open");
@@ -164,7 +237,6 @@ docListRoot.addEventListener("click", (e) => {
     chevronImg.alt = "펼치기";
     return;
   }
-
   if (action === "toggle") {
     const isOpen = node.classList.toggle("is-open");
     chevronImg.src = isOpen ? ICONS.open : ICONS.close;
@@ -198,6 +270,18 @@ docListRoot.addEventListener("click", (e) => {
       newTitleEl.className = "doc-title";
       newTitleEl.textContent = newTitle;
       input.replaceWith(newTitleEl);
+
+      const pid = node.dataset.pageId;
+      const page = pages.get(pid);
+      if (page) page.title = newTitle;
+
+      // 활성 페이지면 헤더도 동기화
+      if (activePageId === pid && titleInputEl) {
+        titleInputEl.value = newTitle;
+        if (typeof autoResize === "function") autoResize(titleInputEl);
+      }
+
+      updateBreadcrumbsFromActive();
     };
 
     input.addEventListener("blur", saveRename, { once: true });
@@ -225,14 +309,31 @@ function getBreadcrumbPath(node) {
   return path.join(" / ");
 }
 
+// 활성 노드 가져오기
+function getActiveNode() {
+  return (
+    docListRoot.querySelector(".tree-node.is-active") ||
+    (activePageId &&
+      docListRoot.querySelector(`.tree-node[data-page-id="${activePageId}"]`))
+  );
+}
+
+// 활성 노드 기준으로 브레드크럼 텍스트 갱신
+function updateBreadcrumbsFromActive() {
+  const node = getActiveNode();
+  if (!node) return;
+  const path = getBreadcrumbPath(node);
+  const breadcrumbsEl = document.getElementById("breadcrumbs");
+  if (breadcrumbsEl) breadcrumbsEl.textContent = path;
+}
+
 docListRoot.addEventListener("click", (e) => {
   const row = e.target.closest(".tree-row");
   if (!row) return;
 
   const node = row.closest(".tree-node");
-  const path = getBreadcrumbPath(node);
-
-  document.getElementById("breadcrumbs").textContent = path;
+  const pid = node.dataset.pageId;
+  if (pid) showPage(pid, node);
 });
 
 const starBtn = document.getElementById("starBtn");
@@ -251,8 +352,8 @@ function autoResize(el) {
   el.style.height = el.scrollHeight + "px";
 }
 
-// 입력 중 자동 증가
+// 헤더 타이틀 입력 시 높이 자동 조정
 titleInput.addEventListener("input", () => autoResize(titleInput));
 
-// 초기값 있을 때도 맞춤
+// 초기 로드 시에도 높이 맞춤
 window.addEventListener("load", () => autoResize(titleInput));
