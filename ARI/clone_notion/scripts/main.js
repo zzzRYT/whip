@@ -234,3 +234,12 @@ docListRoot.addEventListener("click", (e) => {
 
   document.getElementById("breadcrumbs").textContent = path;
 });
+
+const starBtn = document.getElementById("starBtn");
+const img = starBtn.querySelector("img");
+
+starBtn.addEventListener("click", () => {
+  img.src = img.src.includes("star-icon.svg")
+    ? "./assets/icons/star-fill-icon.svg"
+    : "./assets/icons/star-icon.svg";
+});

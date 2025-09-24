@@ -302,6 +302,9 @@
 .star-btn > img {
   display: block;
 }
+.star-btn:hover {
+  background: var(--panel-3);
+}
 
 /* Main */
 .doc-canvas {
