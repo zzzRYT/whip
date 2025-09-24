@@ -731,12 +731,12 @@ color: var(--muted);
   background: var(--panel);
   color: var(--text);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--primary); //알림의포인트 blue, red, green 으로 구분해서
+  border-left: 4px solid var(--primary); /*알림의포인트 blue, red, green 으로 구분해서*/
   padding: 10px 12px;
   border-radius: 12px;
   box-shadow: var(--shadow);
   min-width: 220px;
-  transition: opacity 0.2s ease; //토스트가 사라질때 자연스럽게
+  transition: opacity 0.2s ease; /*토스트가 사라질때 자연스럽게*/
 }
 
 .toast.success {
