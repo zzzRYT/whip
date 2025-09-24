@@ -47,13 +47,16 @@
   --md-border-focus: #bfc6d1;
   --md-shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
+
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -62,12 +65,14 @@ body {
     Cantarell, Noto Sans, sans-serif;
   font-size: 14px;
   line-height: 1.45;
+
   /*폰트랜더링 최적화*/
-  -webkit-font-smoothing: antialiased;  /*브라우저 글꼴 매끄럽게*/
-  -moz-osx-font-smoothing: grayscale;   /*크롬 사파리 등 회색조 안티앨리어싱*/
-  text-rendering: optimizeLegibility;   /*고급폰트*/
+  -webkit-font-smoothing: antialiased; /*브라우저 글꼴 매끄럽게*/
+  -moz-osx-font-smoothing: grayscale; /*크롬 사파리 등 회색조 안티앨리어싱*/
+  text-rendering: optimizeLegibility; /*고급폰트*/
   transition: background-color 0.25s ease, color 0.25s ease;
 }
+
 button {
   border: none;
   background: none;
@@ -75,27 +80,566 @@ button {
 }
 
 /* === App Grid Layout === */
-.app{
-    display:grid;
-    grid-template-columns: var(--sidebar-w) 1fr;
-    grid-template-rows: var(--navbar-h) 1fr;
-    height: 100dvh; /* dvh 동적 뷰포트 높이를 안정적 전체화면 확보를 위해 반영*/
-    width: 100vw;
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: var(--navbar-h) 1fr;
+  height: 100dvh; /* dvh 동적 뷰포트 높이를 안정적 전체화면 확보를 위해 반영*/
+  width: 100vw;
 }
+
+/* 줄 넘버 동일하게 하기 : 누락된 라인 있는지 체크, CSS 작성 완료 후 삭제 예정*/
 
 /* === Sidebar === */
 .sidebar {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    position: relative;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--panel);
-    border-right: 1px solid var(--border);
-    overflow: visible; /*드롭다운, 팝오버 UI 대응*/
-    z-index: var(--z-sidebar); /*--z-sidebar:1000*/
-    transition: transform 0.25s ease; /*자연스런 슬라이딩*/
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+    var(--panel);
+  border-right: 1px solid var(--border);
+  overflow: visible; /*드롭다운, 팝오버 UI 대응*/
+  z-index: var(--z-sidebar); /*--z-sidebar:1000*/
+  transition: transform 0.25s ease; /*자연스런 슬라이딩*/
 }
-.sidebar .inner { 
-    position: relative;
-    padding : 8ox 6px 16px 6px;
-    color:red;
-}  
+
+.sidebar.is-collapsed {
+  transform: translateX(-100%); /*자연스럽게 좌측으로 사라짐*/
+}
+
+.sidebar .inner {
+  position: relative;
+  padding: 8px 6px 16px 6px;
+  height: 100%;
+  overflow: auto; /*없으면 문서 많을 때 잘림*/
+}
+.collapse-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  backdrop-filter: blur(4px); /*반투명, 흐림 효과*/
+}
+.collapse-btn:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+
+.resize-handle {
+  /*사이드바 오른쪽 드래그 핸들*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  cursor: ew-resize; /*좌우 양방향 화살표 모양*/
+  background: linear-gradient(
+    /* 미묘하게 얇은 선느낌 */ 90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  opacity: 0.6;
+}
+.resize-handle:hover {
+  opacity: 1;
+}
+
+/* Floating peek button 사이드바 접혔을때 peek 햄버거 버튼 */
+.peek-btn {
+  /*스크롤해도 항상 같은 자리*/
+  position: fixed;
+  left: 8px;
+  top: calc(var(--navbar-h) + 10px);
+  width: 36px;
+  height: 36px;
+  display: none; /*원래는 안보였다가*/
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  z-index: var(--z-peek);
+  cursor: pointer;
+}
+.sidebar.is-collapsed ~ .peek-btn {
+  /* 사이드바 닫혔을때만 나오게*/
+  display: grid;
+}
+
+/* Navbar (contrast improved)  */
+.navbar {
+  /*스크롤 상관 없이 항상 화면 우측 상단*/
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+  color: var(--text);
+}
+
+.breadcrumbs {
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  padding-left: 6px;
+}
+
+
+
+.menu-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--muted); /*muted 기본은 옅게 표시*/
+  cursor: pointer;
+}
+.menu-btn:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+
+/* ======== Main Content ========*/
+main {
+  grid-column: 2;
+  grid-row: 2;
+  overflow:auto; 
+}
+.dov-canvas{
+  max-width: 940px; /* 대형 문서 편집기 공통:최대폭 900~1000제한 */
+  margin: 0 auto 120px;
+  padding: 18px 20px 80px;
+}
+
+/* ======== Utilities ======== */
+.muted{
+  color: var(--muted);
+}
+.row{
+  display: flex;
+  align-items:center;
+  gap: 8px;
+}
+.row-end { /*모달확인버튼*/
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  justify-content: flex-end;
+}
+.kbd{  /* 키보드 단축키 표시 */
+ border : 1px solid var(--border);
+ background: var(--panel-2);
+ padding: 2px 6px;
+ border-radius: 8px; 
+ font-family: ui-monospace, monospace;
+font-size: 11px;
+color: var(--muted);
+}
+
+/* ======= Buttons ======== */
+.btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+    var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.05s ease;
+}
+.btn.small {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+.btn.primary {
+  background: var(--primary);
+  border-color: color-mix(in oklab, var(--primary) 70%, #000 30%);
+  color: white;
+}
+.btn.danger {
+  background: var(--danger);
+  color: white;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+
+/* ===== User box ===== */
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+    var(--panel-2);
+  margin: 8px;
+}
+.avatar { /*포인트 그라데이션*/
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  box-shadow: var(--shadow);
+}
+.user-meta {
+  display: flex;
+  flex-direction: column;
+}
+.user-meta small {
+  color: var(--muted);
+}
+
+/* ===== Action items ===== */
+.nav-items {
+  padding: 6px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  color: var(--muted);
+  padding: 10px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.item:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+.item.active {
+  background: color-mix(in oklab, var(--primary) 14%, transparent);
+  color: var(--text);
+}
+.item .right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===== Group titles ===== */
+.group-title {
+  padding: 8px 10px;
+  font-weight: 800;
+  color: var(--muted);
+  opacity: 0.95;    /*살짝 낮춰 부드러운 느낌*/
+  letter-spacing: 0.3px;
+  text-transform: uppercase; /*모두 대문자*/
+  font-size: 12px;
+}
+
+
+/* ===== Document tree ===== */
+.doc-list {
+  padding: 6px;
+}
+.tree-row {   /* 문서하나를 나타내는 줄 */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.tree-row:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+.tree-row.active {  /* 한층 더 강조 */
+  background: color-mix(in oklab, var(--primary) 14%, transparent);
+  color: var(--text);
+}
+
+.tree-row.dragover-top {
+  box-shadow: inset 0 2px 0 0 var(--primary);
+}
+.tree-row.dragover-bottom {
+  box-shadow: inset 0 -2px 0 0 var(--primary);
+}
+.tree-row.dragover-inside {  /* 전체 점선 사용자 안정감 위함 */
+  outline: 2px dashed color-mix(in oklab, var(--primary) 70%, transparent);
+}
+.caret {
+  width: 18px;
+  text-align: center;
+  opacity: 0.6;
+  border-radius: 8px;
+}
+.caret:hover {
+  background: var(--panel-3);
+  opacity: 1; /* 클릭 확신감 %*/
+}
+
+/* Icon presence styles */
+.doc-icon {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1;
+}
+.doc-icon.has-icon {
+  background: var(--panel-3);
+  color: var(--text);
+}
+.doc-icon.no-icon {
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+.label {
+  font-size: 14px;
+}
+.label.has-icon {
+  font-weight: 700;
+}
+.label.no-icon {
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.tree-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ghost {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.tree-row:hover .ghost {
+  opacity: 1;
+}
+.label-edit { /* 수정 중 : 제목 더블 클릭시 수정 모드 느낌 */
+  border: 1px dashed var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 2px 6px;
+}
+
+.children {
+  margin-left: 14px;  /* 트리구조 핵심 컨테이너 : 직관적 시각적 계층 트리 */
+}
+
+/* ===== Dropdown menu (portal) 보조 인터페이스 ===== */
+.dropdown-btn {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.dropdown-btn:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+.dropdown-menu { /*body에 직접 붙어 더 있는 메뉴 박스 (포털)*/
+  position: fixed;
+  min-width: 240px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 6px;
+  display: none;
+  z-index: var(--z-dropdown);
+}
+.dropdown-menu.open {   /*open*/
+  display: block;
+}
+
+.menu-item { /*드롭다운 메뉴*/
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.menu-item:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+.menu-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 0;
+}
+
+/* ===== Popover (Trash / Emoji) via portal ===== */
+.popover {
+  position: fixed;
+  width: 320px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 8px;
+  display: none;
+  z-index: var(--z-popover);
+}
+.popover.open {
+  display: block;
+}
+.popover .search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px 8px;
+}
+.popover input {
+  all: unset;  /*브라우저 기본 스타일 제거*/
+  flex: 1;
+  padding: 4px;
+}
+
+.trash-list {
+  margin-top: 8px;
+  max-height: 320px;
+  overflow: auto;
+}
+.trash-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.trash-row:hover {
+  background: var(--panel-3);
+}
+.trash-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.icon-btn:hover {
+  background: var(--panel-3);
+  color: var(--text);
+}
+.emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  max-height: 260px;
+  overflow: auto;
+}
+.emoji-grid button {
+  font-size: 18px;
+  padding: 6px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.emoji-grid button:hover {
+  background: var(--panel-3);
+}
+
+/* ===== Overlays ( 모달 : 검색 / 설정 / 즐겨찾기 ) ===== */
+.overlay {  /*화면 전체 덮개 컨테이너 */
+  position: fixed;   inset: 0;   /*전체 고정 덮개 */
+  display: none;   /* 열릴때 display: flex; */
+  place-items: center;
+  background: rgba(0, 0, 0, 0.5); /*클릭 안되고 어둡게*/
+  padding: 16px;
+  z-index: var(--z-overlay);
+}
+.search-modal,
+.settings-modal,
+.favorites-modal {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow); /*떠 있는 효과*/
+  width: min(640px, 92vw); /*최대, 작을때*/
+  padding: 16px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel-2);
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.search-results {
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.favorites-list {
+  max-height: 360px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.fav-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px dashed var(--border);
+  cursor: pointer;
+}
+
+.fav-row:hover {
+  background: var(--panel-3);
+}
+
+.fav-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.hint { /*검색 모달 안내 문구 */
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
