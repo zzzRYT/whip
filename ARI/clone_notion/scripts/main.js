@@ -105,6 +105,19 @@ function createTreeNode(title = "새 페이지", depth = 0) {
           <button class="ghost" type="button" aria-label="하위 페이지 추가" data-action="add-child">
             <img src="./assets/icons/plus-small-icon.svg" alt="하위 페이지 추가" />
           </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-list">
+              <button class="dropdown-item" type="button" data-menu="duplicate">
+              <img src="./assets/icons/star-icon.svg" alt="즐겨찾기" />
+              즐겨찾기에 추가</button>
+              <button class="dropdown-item" type="button" data-menu="rename">
+              <img src="./assets/icons/rename-icon.svg" alt="이름 변경" />
+              이름 바꾸기</button>
+              <button class="dropdown-item" type="button" data-menu="delete">
+              <img src="./assets/icons/trash-icon.svg" alt="휴지통" />
+              휴지통으로 이동</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="tree-children"></div>
@@ -117,12 +130,24 @@ addPageBtn?.addEventListener("click", () => {
   docListRoot.appendChild(node);
 });
 
+function closeDropdown() {
+  docListRoot.querySelectorAll(".dropdown-menu.is-open").forEach((el) => {
+    el.classList.remove("is-open");
+  });
+}
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".dropdown-menu, [data-action='more']")) return;
+  closeDropdown();
+});
+
 // 이벤트 위임: 토글/하위 추가/더보기
 docListRoot.addEventListener("click", (e) => {
-  const btn = e.target.closest("[data-action], .chevron");
+  const btn = e.target.closest("[data-action], .chevron, [data-menu]");
   if (!btn) return;
 
   const action = btn.dataset.action;
+  const menuAction = btn.dataset.menu;
   const node = btn.closest(".tree-node");
   if (!node) return;
 
@@ -148,7 +173,40 @@ docListRoot.addEventListener("click", (e) => {
   }
 
   if (action === "more") {
-    console.log("more clicked");
-    return;
+    const actions = node.querySelector(":scope > .tree-row .tree-actions");
+    const menu = actions.querySelector(":scope > .dropdown-menu");
+    menu.classList.toggle("is-open");
+  }
+
+  // 드롭다운: 이름 변경
+  if (menuAction === "rename") {
+    closeDropdown();
+    const titleEl = node.querySelector(":scope > .tree-row .doc-title");
+    const oldTitle = titleEl.textContent;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = oldTitle;
+    input.className = "rename-input";
+
+    titleEl.replaceWith(input);
+    input.focus();
+
+    const saveRename = () => {
+      const newTitle = input.value.trim() || oldTitle;
+      const newTitleEl = document.createElement("div");
+      newTitleEl.className = "doc-title";
+      newTitleEl.textContent = newTitle;
+      input.replaceWith(newTitleEl);
+    };
+
+    input.addEventListener("blur", saveRename, { once: true });
+    input.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") input.blur();
+      if (ev.key === "Escape") {
+        input.value = oldTitle;
+        input.blur();
+      }
+    });
   }
 });
