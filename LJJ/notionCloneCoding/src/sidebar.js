@@ -30,7 +30,7 @@ const workspaceItems = document.querySelector('.workspace-items');
 const addWorkspaceButton = document.querySelector('.add-page-button-container');
 addWorkspaceButton.addEventListener('click', () => isToggleCreateModal());
 
-function renderWorkspaces() {
+export function renderWorkspaces() {
   workspaceItems.innerHTML = '';
   const workspaces = getWorkspaces();
 
@@ -121,7 +121,7 @@ function addWorkspace(name) {
     id: getRandomId(),
     name,
     contents: {},
-    parent: '2jwRhlPS2yva',
+    parent: '',
   };
 
   workspaces.push(newPage);

@@ -1,3 +1,5 @@
+import { updateHeaderHistory } from './header.js';
+import { renderWorkspaces } from './sidebar.js';
 import { getIdFromUrl, getWorkspaces } from './utils.js';
 import { BlockNoteEditor } from '@blocknote/core';
 
@@ -8,10 +10,28 @@ function getContents() {
   const workspaces = getWorkspaces();
   if (currentId) {
     const currentWorkspace = workspaces.find((ws) => ws.id === currentId);
-    console.log(currentWorkspace);
-    workspaceNameElement.textContent = currentWorkspace.name;
+    workspaceNameElement.value = currentWorkspace.name;
+    return currentWorkspace;
+  }
+  return null;
+}
+
+export function workspaceTitleChangeHandler() {
+  const name = workspaceNameElement.value;
+  const workspace = getContents();
+  if (workspace) {
+    workspace.name = name ? name : '제목 없음';
+    const workspaces = getWorkspaces();
+    const newWorkspaces = workspaces.map((ws) =>
+      ws.id === workspace.id ? workspace : ws
+    );
+    localStorage.setItem('workspaces', JSON.stringify(newWorkspaces));
+    workspaceNameElement.value = workspace.name;
+    renderWorkspaces();
+    updateHeaderHistory();
   }
 }
+workspaceNameElement.addEventListener('change', workspaceTitleChangeHandler);
 
 window.addEventListener('urlchange', getContents);
 

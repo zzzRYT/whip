@@ -1,12 +1,17 @@
 .contents {
   background-color: var(--panel);
-}
-
-.contents-area {
   padding: 4rem;
 }
 
 .workspace-name {
+  background-color: var(--panel);
+  border: none;
+  color: white;
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+#editor {
+  position: relative;
 }
