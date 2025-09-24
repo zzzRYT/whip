@@ -1,7 +1,7 @@
 .sidebar {
   grid-column: 1;
   grid-row: 1 / span 2;
-  background-color: rgb(32, 32, 32);
+  background-color: var(--secondary);
   position: relative;
   z-index: 111;
   width: var(--sidebar-w);
@@ -72,7 +72,7 @@
 }
 
 .sidebar-open-toggle {
-  background-color: rgb(32, 32, 32);
+  background-color: var(--secondary);
 }
 
 .sidebar-open-toggle button {
@@ -163,7 +163,7 @@
   margin-top: 0.5rem;
   gap: 1rem;
   padding: 5px;
-  color: #9b9b9b;
+  color: var(--muted);
 }
 
 .add-page-button-container:hover {
@@ -180,7 +180,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #9b9b9b;
+  color: var(--muted);
 }
 
 .personal-space-items {
@@ -198,7 +198,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
   z-index: var(--z-modal);
@@ -207,7 +207,7 @@
 .create-workspace-modal-contents {
   width: 50%;
   height: 50%;
-  background-color: rgb(32, 32, 32);
+  background-color: var(--secondary);
   padding: 1rem 2rem;
   border-radius: 12px;
 }

@@ -1,5 +1,6 @@
 @import './sidebar.css';
 @import './header.css';
+@import './contents.css';
 
 :root {
   /* ===== Default: DARK theme ===== */
@@ -15,6 +16,7 @@
   --danger: #ff6b6b;
   --success: #7ad69f;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --secondary: rgb(32, 32, 32);
   --radius: 12px;
   --sidebar-w: 260px;
   --navbar-h: 56px;
@@ -90,8 +92,4 @@ body {
 
 .header {
   background-color: red;
-}
-
-.contents {
-  background-color: green;
 }

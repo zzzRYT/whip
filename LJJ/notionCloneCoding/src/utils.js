@@ -28,9 +28,20 @@ function getIdFromUrl() {
  * @param {string} id
  */
 function navigateTo(id) {
-  const url = `/LJJ/notionCloneCoding?id=${id}`;
+  const url = `?id=${id}`;
   const state = { id };
   history.pushState(state, '', url);
+  window.dispatchEvent(new CustomEvent('urlchange'));
 }
 
-export { getRandomId, navigateTo, getIdFromUrl };
+/**
+ * localStorage에서 workspaces 데이터를 가져오는 함수
+ * @returns {Array} workspaces
+ */
+function getWorkspaces() {
+  const searchStorage = localStorage.getItem('workspaces');
+  const workspaces = JSON.parse(searchStorage) || [];
+  return workspaces;
+}
+
+export { getRandomId, navigateTo, getIdFromUrl, getWorkspaces };

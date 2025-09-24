@@ -1,0 +1,12 @@
+.contents {
+  background-color: var(--panel);
+}
+
+.contents-area {
+  padding: 4rem;
+}
+
+.workspace-name {
+  margin: 0;
+  font-size: 2rem;
+}
