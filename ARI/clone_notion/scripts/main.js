@@ -243,3 +243,16 @@ starBtn.addEventListener("click", () => {
     ? "./assets/icons/star-fill-icon.svg"
     : "./assets/icons/star-icon.svg";
 });
+
+const titleInput = document.getElementById("titleInput");
+
+function autoResize(el) {
+  el.style.height = "auto";
+  el.style.height = el.scrollHeight + "px";
+}
+
+// 입력 중 자동 증가
+titleInput.addEventListener("input", () => autoResize(titleInput));
+
+// 초기값 있을 때도 맞춤
+window.addEventListener("load", () => autoResize(titleInput));
