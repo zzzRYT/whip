@@ -279,8 +279,7 @@
   display: block;
 }
 .breadcrumbs {
-  color: var(--text);
-  font-weight: 700;
+  color: var(--muted);
   letter-spacing: 0.2px;
   padding-left: 6px;
 }

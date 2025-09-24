@@ -210,3 +210,27 @@ docListRoot.addEventListener("click", (e) => {
     });
   }
 });
+
+function getBreadcrumbPath(node) {
+  const path = [];
+  let current = node;
+
+  while (current) {
+    const titleEl = current.querySelector(":scope > .tree-row .doc-title");
+    if (titleEl) path.unshift(titleEl.textContent.trim());
+
+    current = current.closest(".tree-children")?.closest(".tree-node");
+  }
+
+  return path.join(" / ");
+}
+
+docListRoot.addEventListener("click", (e) => {
+  const row = e.target.closest(".tree-row");
+  if (!row) return;
+
+  const node = row.closest(".tree-node");
+  const path = getBreadcrumbPath(node);
+
+  document.getElementById("breadcrumbs").textContent = path;
+});
