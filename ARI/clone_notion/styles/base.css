@@ -15,8 +15,6 @@
   --danger: #ff6b6b;
   --success: #7ad69f;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  --shadow-dropdown: rgba(0, 0, 0, 0.1) 0px 14px 28px -6px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px, rgba(84, 72, 49, 0.08) 0px 0px 0px 1px;
   --radius: 12px;
   --sidebar-w: 260px;
   --navbar-h: 44px;
