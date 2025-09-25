@@ -978,3 +978,9 @@ color: var(--muted);
 .sidebar.is-collapsed ~ .peek-btn {
   display: none;
 }
+
+/*to-do*/
+  #editor label input:checked + span {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }

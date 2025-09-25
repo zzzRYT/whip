@@ -1,6 +1,6 @@
 // Notion 
 // =====================
-// Theme <html data-theme="light|dark"> 
+// html data-theme="light|dark"
 const THEME_KEY = "vnotion:theme"; 
 
 function applyTheme(theme) {
@@ -22,10 +22,6 @@ function loadTheme() {
   // 기본값은 다크 테마
   return "dark";
 }
-// 부팅 시 현재 테마를 로드 후 즉시 적용
-// let currentTheme = loadTheme();
-// applyTheme(currentTheme);
-
 const settingsOverlay = document.querySelector("#settingsOverlay");
 const themeToggle = document.querySelector("#themeToggle"); // "Use light theme" 체크박스
 
@@ -41,7 +37,7 @@ document.querySelectorAll("#actionSettings").forEach((el) => {
   el.addEventListener("click", openSettings);
 });
 
-$("#settingsClose")?.addEventListener("click", () => {
+document.querySelector("#settingsClose")?.addEventListener("click", () => {
   if (settingsOverlay) settingsOverlay.style.display = "none";
 });
 
@@ -56,10 +52,20 @@ themeToggle?.addEventListener("change", () =>
     : (applyTheme("dark"), saveTheme("dark"), currentTheme = "dark")
 );
 
-$("#settingsClose")?.addEventListener("click", () => {
+document.querySelector("#settingsClose")?.addEventListener("click", () => {
   if (settingsOverlay) settingsOverlay.style.display = "none";
 });
 
 settingsOverlay?.addEventListener("click", (e) => {
   if (e.target === settingsOverlay) settingsOverlay.style.display = "none";
 });
+
+//to-do리스트
+const editor = document.querySelector("#editor");
+
+  document.querySelector("#todoBtn")?.addEventListener("click", () => {
+    const box = document.createElement("div");
+    box.innerHTML = '<label><input type="checkbox"> <span>To-do</span></label>';
+    editor.appendChild(box);   
+    if (typeof saveEditor === "function") saveEditor();
+  });
