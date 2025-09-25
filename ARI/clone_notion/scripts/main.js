@@ -95,7 +95,7 @@ function setActiveNode(node) {
 const titleInputEl = document.getElementById("titleInput");
 const breadcrumbsEl = document.getElementById("breadcrumbs");
 
-// 문서에서 제목 변경 시 : 문서-사이드바-브레드크럼 동기화
+// 페이지에서 제목 변경 시 : 페이지-사이드바-브레드크럼 동기화
 function applyHeaderTitleToState() {
   const node = getActiveNode();
   if (!node) return;
@@ -151,12 +151,12 @@ function createTreeNode(titleOrPage = "새 페이지", depth = 0, parentId = nul
       : titleOrPage;
 
   ensureIconFields(page);
-  const iconDoc =
+  const iconPage =
     page.iconType === "emoji"
       ? `<span class="doc-icon-emoji" aria-hidden="true">${page.iconValue}</span>`
       : `<img src="${
           page.iconValue || ICON_DEFAULT_SRC
-        }" alt="기본 문서 아이콘" />`;
+        }" alt="기본 페이지 아이콘" />`;
 
   const node = document.createElement("div");
   node.className = "tree-node";
@@ -168,7 +168,7 @@ function createTreeNode(titleOrPage = "새 페이지", depth = 0, parentId = nul
       <div class="tree-row">
         <div class="doc-slot">
           <div class="doc-icon">
-            ${iconDoc}
+            ${iconPage}
           </div>
           <button class="chevron" type="button" aria-label="하위 페이지 토글" data-action="toggle">
             <img src="${ICONS.close}" alt="접기" />
@@ -382,7 +382,7 @@ function renderHeaderIcon(type, value) {
     iconBtn.innerHTML = `<span class="doc-emoji" aria-hidden="true">${value}</span>`;
   } else {
     const src = value || ICON_DEFAULT_SRC;
-    iconBtn.innerHTML = `<img src="${src}" alt="기본 문서 아이콘" />`;
+    iconBtn.innerHTML = `<img src="${src}" alt="기본 페이지 아이콘" />`;
   }
 }
 
@@ -397,7 +397,7 @@ function updateSidebarIcon(pageId, type, value) {
     iconHost.innerHTML = `<span class="doc-icon-emoji" aria-hidden="true">${value}</span>`;
   } else {
     const src = value || ICON_DEFAULT_SRC;
-    iconHost.innerHTML = `<img src="${src}" alt="기본 문서 아이콘" />`;
+    iconHost.innerHTML = `<img src="${src}" alt="기본 페이지 아이콘" />`;
   }
 }
 
