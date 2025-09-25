@@ -158,6 +158,10 @@
     </div>
   </div>
 
+  <button id="actionSettings" class="btn small" title="Settings">
+    ⚙️
+  </button>
+
   <!-- Settings Overlay -->
   <div id="settingsOverlay" class="overlay">
     <div class="settings-modal">
@@ -179,40 +183,38 @@
           </label>
         </div>
 
-        <!-- Row: Export -->
-        <div class="settings-row">
-          <div>
-            <div class="label">Export data</div>
-            <div class="sublabel">Download your notes as JSON</div>
-          </div>
-          <button id="exportBtn" class="btn small">Export</button>
-        </div>
-
-        <!-- Row: Import -->
-        <div class="settings-row">
-          <div>
-            <div class="label">Import data</div>
-            <div class="sublabel">Restore from a JSON backup</div>
-          </div>
-          <label class="btn small" style="
-                position: relative;
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              ">
-            Import
-            <input id="importFile" type="file" accept="application/json" style="
-                  position: absolute;
-                  inset: 0;
-                  opacity: 0;
-                  cursor: pointer;
-                " />
-          </label>
-        </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const actionSettings = $("#actionSettings")
+    const modal = $(".overlay")
+    const closeBtn = $('#settingsClose');
+
+    function openModal() {
+      actionSettings.classList.toggle('');
+      modal.setAttribute('aria-hidden', modal.classList.contains('show') ? 'false' : 'true');
+    }
+
+    function openModal() {
+      $("#actionSettings").classList.toggle("show");
+    }
+    $("#actionSettings").addEventListener("click", openModal);
+    $("settingsClose").addEventListener("click", openModal);
+
+    $(".modal").addEventListener("click", () => {
+      console.log("modal click");
+      console.log("이벤트.target : " + 이벤트.target);
+      console.log("이벤트.currentTarget : " + 이벤트.currentTarget);
+    });
+
+    if (event.target === document.querySelector(".modal")) {
+      $(".modal").classList.remove("show");
+    }
+
+  </script>
 
   <!-- Favorites Overlay -->
   <div id="favoritesOverlay" class="overlay">
@@ -239,6 +241,7 @@
 
   <!-- Toasts -->
   <div id="toasts" class="toasts"></div>
+
 
   <script src="app.js"></script>
 </body>
