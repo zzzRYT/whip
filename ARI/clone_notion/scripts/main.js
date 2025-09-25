@@ -357,3 +357,28 @@ titleInput.addEventListener("input", () => autoResize(titleInput));
 
 // 초기 로드 시에도 높이 맞춤
 window.addEventListener("load", () => autoResize(titleInput));
+
+// 모듈 스코프에서는 전역 UMD를 window로 접근
+const { createPopup } = window.picmoPopup || {};
+if (!createPopup) {
+  console.error("picmoPopup 로드 실패");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("iconBtn");
+  if (!btn) return;
+
+  const pkr = createPopup(
+    { rootElement: document.body, showPreview: false, animate: true },
+    { referenceElement: btn, triggerElement: btn, position: "bottom-start" }
+  );
+  window.pkr = pkr;
+
+  btn.addEventListener("click", () => {
+    pkr.toggle();
+  });
+
+  pkr.addEventListener("emoji:select", (e) => {
+    btn.innerHTML = `<span class="doc-emoji">${e.emoji}</span>`;
+  });
+});
