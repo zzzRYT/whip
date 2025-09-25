@@ -79,6 +79,7 @@ let activePageId = null;
 function createPageData(title = "새 페이지", parentId = null) {
   const id = "p" + ++pageSeq;
   const data = { id, title, content: "", parentId };
+  ensureIconFields(data);
   pages.set(id, data);
   return data;
 }
@@ -126,6 +127,8 @@ function showPage(pageId, node) {
     titleInputEl.value = page.title;
     if (typeof autoResize === "function") autoResize(titleInputEl);
   }
+  ensureIconFields(page);
+  renderHeaderIcon(page.iconType, page.iconValue);
 
   if (node) setActiveNode(node);
 
@@ -138,7 +141,6 @@ const docListRoot = document.getElementById("docListRoot");
 const ICONS = {
   open: "./assets/icons/chevron-down-icon.svg",
   close: "./assets/icons/chevron-up-icon.svg",
-  page: "./assets/icons/page-default-icon.svg",
 };
 
 // 새 tree-node 생성
@@ -147,6 +149,14 @@ function createTreeNode(titleOrPage = "새 페이지", depth = 0, parentId = nul
     typeof titleOrPage === "string"
       ? createPageData(titleOrPage, parentId)
       : titleOrPage;
+
+  ensureIconFields(page);
+  const iconDoc =
+    page.iconType === "emoji"
+      ? `<span class="doc-icon-emoji" aria-hidden="true">${page.iconValue}</span>`
+      : `<img src="${
+          page.iconValue || ICON_DEFAULT_SRC
+        }" alt="기본 문서 아이콘" />`;
 
   const node = document.createElement("div");
   node.className = "tree-node";
@@ -158,7 +168,7 @@ function createTreeNode(titleOrPage = "새 페이지", depth = 0, parentId = nul
       <div class="tree-row">
         <div class="doc-slot">
           <div class="doc-icon">
-            <img src="${ICONS.page}" alt="기본 문서 아이콘" />
+            ${iconDoc}
           </div>
           <button class="chevron" type="button" aria-label="하위 페이지 토글" data-action="toggle">
             <img src="${ICONS.close}" alt="접기" />
@@ -358,6 +368,39 @@ titleInput.addEventListener("input", () => autoResize(titleInput));
 // 초기 로드 시에도 높이 맞춤
 window.addEventListener("load", () => autoResize(titleInput));
 
+const ICON_DEFAULT_SRC = "./assets/icons/page-default-icon.svg";
+
+function ensureIconFields(page) {
+  if (!("iconType" in page)) page.iconType = "image"; // 'image' | 'emoji'
+  if (!("iconValue" in page)) page.iconValue = ICON_DEFAULT_SRC; // img src or emoji char
+}
+
+const iconBtn = document.getElementById("iconBtn");
+
+function renderHeaderIcon(type, value) {
+  if (type === "emoji") {
+    iconBtn.innerHTML = `<span class="doc-emoji" aria-hidden="true">${value}</span>`;
+  } else {
+    const src = value || ICON_DEFAULT_SRC;
+    iconBtn.innerHTML = `<img src="${src}" alt="기본 문서 아이콘" />`;
+  }
+}
+
+function updateSidebarIcon(pageId, type, value) {
+  const node = document.querySelector(`.tree-node[data-page-id="${pageId}"]`);
+  if (!node) return;
+
+  const iconHost = node.querySelector(".doc-icon");
+  if (!iconHost) return;
+
+  if (type === "emoji") {
+    iconHost.innerHTML = `<span class="doc-icon-emoji" aria-hidden="true">${value}</span>`;
+  } else {
+    const src = value || ICON_DEFAULT_SRC;
+    iconHost.innerHTML = `<img src="${src}" alt="기본 문서 아이콘" />`;
+  }
+}
+
 // 모듈 스코프에서는 전역 UMD를 window로 접근
 const { createPopup } = window.picmoPopup || {};
 if (!createPopup) {
@@ -368,17 +411,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("iconBtn");
   if (!btn) return;
 
-  const pkr = createPopup(
+  // 현재 활성 페이지 정보 확보
+  const getActivePage = () => pages?.get?.(activePageId);
+
+  {
+    const page = getActivePage();
+    if (page) {
+      ensureIconFields(page);
+      renderHeaderIcon(page.iconType, page.iconValue);
+    } else {
+      renderHeaderIcon("image", ICON_DEFAULT_SRC);
+    }
+  }
+
+  // PicMo 팝업 생성
+  const picker = createPopup(
     { rootElement: document.body, showPreview: false, animate: true },
     { referenceElement: btn, triggerElement: btn, position: "bottom-start" }
   );
-  window.pkr = pkr;
 
-  btn.addEventListener("click", () => {
-    pkr.toggle();
-  });
+  btn.addEventListener("click", () => picker.toggle());
 
-  pkr.addEventListener("emoji:select", (e) => {
-    btn.innerHTML = `<span class="doc-emoji">${e.emoji}</span>`;
+  // 이모지 선택 → 상태 저장 → 헤더/사이드바 동기화
+  picker.addEventListener("emoji:select", (e) => {
+    const page = getActivePage();
+    const emoji = e.emoji;
+
+    if (page) {
+      ensureIconFields(page);
+      page.iconType = "emoji";
+      page.iconValue = emoji;
+      renderHeaderIcon("emoji", emoji);
+      updateSidebarIcon(page.id, "emoji", emoji);
+    } else {
+      renderHeaderIcon("emoji", emoji);
+    }
   });
 });
