@@ -120,7 +120,7 @@ function addWorkspace(name) {
   const newPage = {
     id: getRandomId(),
     name,
-    contents: {},
+    contents: [],
     parent: '',
   };
 
