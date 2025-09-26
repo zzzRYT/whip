@@ -142,13 +142,13 @@
 
 .workspace-item {
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   margin-top: 0.5rem;
   gap: 8px;
   padding: 5px;
-  color: var(--text);
   cursor: pointer;
+  position: relative;
 }
 
 .workspace-item:hover {
@@ -225,4 +225,101 @@
   justify-content: center;
   align-items: start;
   cursor: pointer;
+}
+
+.workspace-item button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.workspace-item button:hover {
+  background-color: var(--button-hover);
+}
+
+.workspace-item > :nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.workspace-item > :nth-child(2) {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 2px;
+  border-radius: 0.375rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.workspace-item:hover > :nth-child(2) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.workspace-item-name {
+  font-weight: 500;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 120px;
+  color: var(--muted);
+  background: none;
+  border: none;
+}
+
+.workspace-dropdown-menu,
+.add-child-button {
+  transition: fill 0.2s ease-in-out;
+}
+
+.open-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--secondary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  z-index: var(--z-dropdown);
+  min-width: 150px;
+}
+
+/* Dropdown Menu Styles */
+.workspace-item-dropdown {
+  position: absolute;
+  background-color: var(--secondary);
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  padding: 0.5rem;
+  z-index: 120;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+}
+
+.workspace-item-dropdown button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.workspace-item-dropdown button:hover {
+  background-color: var(--button-hover);
+  color: #fff;
 }
