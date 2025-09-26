@@ -1,12 +1,34 @@
 .contents {
   background-color: var(--panel);
-}
-
-.contents-area {
   padding: 4rem;
+  overflow: auto;
 }
 
 .workspace-name {
+  background-color: var(--panel);
+  border: none;
+  color: white;
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  outline: none;
+}
+
+#editor {
+  outline: none;
+}
+
+.block-element {
+  position: relative;
+}
+
+.block-side-menu {
+  background-color: gray;
+  position: absolute;
+  padding: 10px;
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 8px;
 }
