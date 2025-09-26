@@ -71,33 +71,110 @@ handle.addEventListener("mousedown", onDown);
 window.addEventListener("mousemove", onMove);
 window.addEventListener("mouseup", onUp);
 
+let pageSeq = 0;
+const pages = new Map();
+let activePageId = null;
+
+// 새 페이지 데이터 생성하고 pages에 등록
+function createPageData(title = "새 페이지", parentId = null) {
+  const id = "p" + ++pageSeq;
+  const data = { id, title, content: "", parentId };
+  ensureIconFields(data);
+  pages.set(id, data);
+  return data;
+}
+
+// 사이드바 트리에서 활성 노드 표시 관리
+function setActiveNode(node) {
+  docListRoot
+    .querySelectorAll(".tree-node.is-active")
+    .forEach((n) => n.classList.remove("is-active"));
+  node.classList.add("is-active");
+}
+
+const titleInputEl = document.getElementById("titleInput");
+const breadcrumbsEl = document.getElementById("breadcrumbs");
+
+// 페이지에서 제목 변경 시 : 페이지-사이드바-브레드크럼 동기화
+function applyHeaderTitleToState() {
+  const node = getActiveNode();
+  if (!node) return;
+
+  const pid = node.dataset.pageId;
+  const page = pages.get(pid);
+  if (!page) return;
+
+  const newTitle = (titleInputEl.value || "").trim() || "제목 없음";
+  page.title = newTitle;
+  const titleEl = node.querySelector(":scope > .tree-row .doc-title");
+  if (titleEl) titleEl.textContent = newTitle;
+
+  updateBreadcrumbsFromActive();
+}
+
+// 실시간 동기화
+titleInputEl?.addEventListener("input", applyHeaderTitleToState);
+titleInputEl?.addEventListener("blur", applyHeaderTitleToState);
+
+// 메인 영역에 페이지 표시
+function showPage(pageId, node) {
+  const page = pages.get(pageId);
+  if (!page) return;
+
+  activePageId = pageId;
+
+  if (titleInputEl) {
+    titleInputEl.value = page.title;
+    if (typeof autoResize === "function") autoResize(titleInputEl);
+  }
+  ensureIconFields(page);
+  renderHeaderIcon(page.iconType, page.iconValue);
+
+  if (node) setActiveNode(node);
+
+  updateBreadcrumbsFromActive();
+}
+
 const addPageBtn = document.getElementById("actionAddPage");
 const docListRoot = document.getElementById("docListRoot");
 
 const ICONS = {
   open: "./assets/icons/chevron-down-icon.svg",
   close: "./assets/icons/chevron-up-icon.svg",
-  page: "./assets/icons/page-default-icon.svg",
 };
 
-// 새 tree-node 생성 함수
-function createTreeNode(title = "새 페이지", depth = 0) {
+// 새 tree-node 생성
+function createTreeNode(titleOrPage = "새 페이지", depth = 0, parentId = null) {
+  const page =
+    typeof titleOrPage === "string"
+      ? createPageData(titleOrPage, parentId)
+      : titleOrPage;
+
+  ensureIconFields(page);
+  const iconPage =
+    page.iconType === "emoji"
+      ? `<span class="doc-icon-emoji" aria-hidden="true">${page.iconValue}</span>`
+      : `<img src="${
+          page.iconValue || ICON_DEFAULT_SRC
+        }" alt="기본 페이지 아이콘" />`;
+
   const node = document.createElement("div");
   node.className = "tree-node";
   node.dataset.depth = depth;
+  node.dataset.pageId = page.id;
   node.style.setProperty("--indent", depth);
 
   node.innerHTML = `
       <div class="tree-row">
         <div class="doc-slot">
           <div class="doc-icon">
-            <img src="${ICONS.page}" alt="기본 문서 아이콘" />
+            ${iconPage}
           </div>
           <button class="chevron" type="button" aria-label="하위 페이지 토글" data-action="toggle">
             <img src="${ICONS.close}" alt="접기" />
           </button>
         </div>
-        <div class="doc-title">${title}</div>
+        <div class="doc-title">${page.title}</div>
         <div class="tree-actions">
           <button class="ghost" type="button" aria-label="더보기" data-action="more">
             <img src="./assets/icons/ellipsis-small-icon.svg" alt="더보기" />
@@ -126,8 +203,11 @@ function createTreeNode(title = "새 페이지", depth = 0) {
 }
 
 addPageBtn?.addEventListener("click", () => {
-  const node = createTreeNode("새 페이지", 0);
+  const page = createPageData("새 페이지");
+  const node = createTreeNode(page, 0);
   docListRoot.appendChild(node);
+
+  showPage(page.id, node);
 });
 
 function closeDropdown() {
@@ -156,7 +236,10 @@ docListRoot.addEventListener("click", (e) => {
 
   if (action === "add-child") {
     const depth = (parseInt(node.dataset.depth, 10) || 0) + 1;
-    const childNode = createTreeNode("새 페이지", depth);
+    const parentId = node.dataset.pageId;
+    const childPage = createPageData("새 페이지", parentId);
+
+    const childNode = createTreeNode(childPage, depth, parentId);
     children.appendChild(childNode);
 
     node.classList.add("is-open");
@@ -164,7 +247,6 @@ docListRoot.addEventListener("click", (e) => {
     chevronImg.alt = "펼치기";
     return;
   }
-
   if (action === "toggle") {
     const isOpen = node.classList.toggle("is-open");
     chevronImg.src = isOpen ? ICONS.open : ICONS.close;
@@ -198,6 +280,18 @@ docListRoot.addEventListener("click", (e) => {
       newTitleEl.className = "doc-title";
       newTitleEl.textContent = newTitle;
       input.replaceWith(newTitleEl);
+
+      const pid = node.dataset.pageId;
+      const page = pages.get(pid);
+      if (page) page.title = newTitle;
+
+      // 활성 페이지면 헤더도 동기화
+      if (activePageId === pid && titleInputEl) {
+        titleInputEl.value = newTitle;
+        if (typeof autoResize === "function") autoResize(titleInputEl);
+      }
+
+      updateBreadcrumbsFromActive();
     };
 
     input.addEventListener("blur", saveRename, { once: true });
@@ -209,4 +303,148 @@ docListRoot.addEventListener("click", (e) => {
       }
     });
   }
+});
+
+function getBreadcrumbPath(node) {
+  const path = [];
+  let current = node;
+
+  while (current) {
+    const titleEl = current.querySelector(":scope > .tree-row .doc-title");
+    if (titleEl) path.unshift(titleEl.textContent.trim());
+
+    current = current.closest(".tree-children")?.closest(".tree-node");
+  }
+
+  return path.join(" / ");
+}
+
+// 활성 노드 가져오기
+function getActiveNode() {
+  return (
+    docListRoot.querySelector(".tree-node.is-active") ||
+    (activePageId &&
+      docListRoot.querySelector(`.tree-node[data-page-id="${activePageId}"]`))
+  );
+}
+
+// 활성 노드 기준으로 브레드크럼 텍스트 갱신
+function updateBreadcrumbsFromActive() {
+  const node = getActiveNode();
+  if (!node) return;
+  const path = getBreadcrumbPath(node);
+  const breadcrumbsEl = document.getElementById("breadcrumbs");
+  if (breadcrumbsEl) breadcrumbsEl.textContent = path;
+}
+
+docListRoot.addEventListener("click", (e) => {
+  const row = e.target.closest(".tree-row");
+  if (!row) return;
+
+  const node = row.closest(".tree-node");
+  const pid = node.dataset.pageId;
+  if (pid) showPage(pid, node);
+});
+
+const starBtn = document.getElementById("starBtn");
+const img = starBtn.querySelector("img");
+
+starBtn.addEventListener("click", () => {
+  img.src = img.src.includes("star-icon.svg")
+    ? "./assets/icons/star-fill-icon.svg"
+    : "./assets/icons/star-icon.svg";
+});
+
+const titleInput = document.getElementById("titleInput");
+
+function autoResize(el) {
+  el.style.height = "auto";
+  el.style.height = el.scrollHeight + "px";
+}
+
+// 헤더 타이틀 입력 시 높이 자동 조정
+titleInput.addEventListener("input", () => autoResize(titleInput));
+
+// 초기 로드 시에도 높이 맞춤
+window.addEventListener("load", () => autoResize(titleInput));
+
+const ICON_DEFAULT_SRC = "./assets/icons/page-default-icon.svg";
+
+function ensureIconFields(page) {
+  if (!("iconType" in page)) page.iconType = "image"; // 'image' | 'emoji'
+  if (!("iconValue" in page)) page.iconValue = ICON_DEFAULT_SRC; // img src or emoji char
+}
+
+const iconBtn = document.getElementById("iconBtn");
+
+function renderHeaderIcon(type, value) {
+  if (type === "emoji") {
+    iconBtn.innerHTML = `<span class="doc-emoji" aria-hidden="true">${value}</span>`;
+  } else {
+    const src = value || ICON_DEFAULT_SRC;
+    iconBtn.innerHTML = `<img src="${src}" alt="기본 페이지 아이콘" />`;
+  }
+}
+
+function updateSidebarIcon(pageId, type, value) {
+  const node = document.querySelector(`.tree-node[data-page-id="${pageId}"]`);
+  if (!node) return;
+
+  const iconHost = node.querySelector(".doc-icon");
+  if (!iconHost) return;
+
+  if (type === "emoji") {
+    iconHost.innerHTML = `<span class="doc-icon-emoji" aria-hidden="true">${value}</span>`;
+  } else {
+    const src = value || ICON_DEFAULT_SRC;
+    iconHost.innerHTML = `<img src="${src}" alt="기본 페이지 아이콘" />`;
+  }
+}
+
+// 모듈 스코프에서는 전역 UMD를 window로 접근
+const { createPopup } = window.picmoPopup || {};
+if (!createPopup) {
+  console.error("picmoPopup 로드 실패");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("iconBtn");
+  if (!btn) return;
+
+  // 현재 활성 페이지 정보 확보
+  const getActivePage = () => pages?.get?.(activePageId);
+
+  {
+    const page = getActivePage();
+    if (page) {
+      ensureIconFields(page);
+      renderHeaderIcon(page.iconType, page.iconValue);
+    } else {
+      renderHeaderIcon("image", ICON_DEFAULT_SRC);
+    }
+  }
+
+  // PicMo 팝업 생성
+  const picker = createPopup(
+    { rootElement: document.body, showPreview: false, animate: true },
+    { referenceElement: btn, triggerElement: btn, position: "bottom-start" }
+  );
+
+  btn.addEventListener("click", () => picker.toggle());
+
+  // 이모지 선택 → 상태 저장 → 헤더/사이드바 동기화
+  picker.addEventListener("emoji:select", (e) => {
+    const page = getActivePage();
+    const emoji = e.emoji;
+
+    if (page) {
+      ensureIconFields(page);
+      page.iconType = "emoji";
+      page.iconValue = emoji;
+      renderHeaderIcon("emoji", emoji);
+      updateSidebarIcon(page.id, "emoji", emoji);
+    } else {
+      renderHeaderIcon("emoji", emoji);
+    }
+  });
 });

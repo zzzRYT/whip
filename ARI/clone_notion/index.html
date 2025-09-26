@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>clone_notion</title>
     <link rel="stylesheet" href="./styles/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/picmo@5.8.5/dist/umd/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@picmo/popup-picker@5.8.5/dist/umd/index.js"></script>
   </head>
   <body>
     <div class="app">
@@ -111,7 +113,20 @@
       <main>
         <div class="doc-canvas">
           <!-- Header -->
-          <div class="doc-header">Header 영역</div>
+          <div class="doc-header">
+            <button
+              id="iconBtn"
+              class="doc-icon-big"
+              title="Change icon"
+            ></button>
+            <div class="title-wrap">
+              <textarea
+                id="titleInput"
+                class="title-input"
+                placeholder="새 페이지"
+              ></textarea>
+            </div>
+          </div>
 
           <!-- Toolbar -->
           <div id="toolbar" class="toolbar">Toolbar 영역</div>
