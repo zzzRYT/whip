@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notion Clone</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="sidebar">
+        <div class="sidebar-open-toggle" style="display: none">
+          <button class="nav-toggle-button">
+            <svg
+              viewBox="0 0 14 14"
+              class="doubleChevronRight"
+              style="
+                width: 14px;
+                height: 14px;
+                display: block;
+                fill: inherit;
+                flex-shrink: 0;
+              "
+            >
+              <path
+                d="M6.21484 2.12427L5.42969 2.90942L9.44011 6.91985L5.42969 10.9303L6.21484 11.7154L11.0104 6.91985L6.21484 2.12427Z"
+              ></path>
+              <path
+                d="M2.21484 2.12427L1.42969 2.90942L5.44011 6.91985L1.42969 10.9303L2.21484 11.7154L7.01042 6.91985L2.21484 2.12427Z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div class="side-menu">
+          <div class="side-profile">
+            <div class="workspace-info">
+              <div class="workspace-logo-container"></div>
+              <h2>LJJ's Notion</h2>
+            </div>
+            <div class="nav-controls-buttons">
+              <button class="nav-toggle-button">
+                <svg
+                  viewBox="0 0 14 14"
+                  class="doubleChevronLeft"
+                  style="
+                    width: 14px;
+                    height: 14px;
+                    display: block;
+                    fill: inherit;
+                    flex-shrink: 0;
+                  "
+                >
+                  <path
+                    d="M7.78516 2.12427L8.57031 2.90942L4.55989 6.91985L8.57031 10.9303L7.78516 11.7154L2.98958 6.91985L7.78516 2.12427Z"
+                  ></path>
+                  <path
+                    d="M11.7852 2.12427L12.5703 2.90942L8.55989 6.91985L12.5703 10.9303L11.7852 11.7154L6.98958 6.91985L11.7852 2.12427Z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="easy-side-controls">
+            <ul>
+              <li>Search</li>
+              <li>Updates</li>
+              <li>Settings</li>
+            </ul>
+          </div>
+          <div class="side-favorite">
+            <h3>Favorites</h3>
+          </div>
+          <div class="workspace">
+            <h3>Workspaces</h3>
+            <div class="workspace-items"></div>
+            <div class="add-page-button-container">
+              + Add a page
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="header">
+        <div class="header-contents">
+          <div class="left-header">
+            <div class="folder-history"></div>
+          </div>
+          <div class="right-header">
+            <button>Share</button>
+            <button>Updates</button>
+            <button>Favorite</button>
+            <button>...</button>
+          </div>
+        </div>
+      </header>
+      <main class="contents">
+        <input type="text" class="workspace-name" placeholder="Untitled" />
+        <div id="editor"></div>
+      </main>
+    </div>
+
+    <div class="create-workspace-modal">
+      <div class="create-workspace-modal-contents">
+        <h2>Create new page</h2>
+        <div class="new-page-button-container">
+          <h3>New Page</h3>
+          <p>Start with a blank page.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
