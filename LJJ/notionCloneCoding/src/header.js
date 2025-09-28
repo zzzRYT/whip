@@ -2,7 +2,7 @@ import { getIdFromUrl, getWorkspaces, navigateTo } from './utils.js';
 
 const folderHistory = document.querySelector('.folder-history');
 
-function updateHeaderHistory() {
+export function updateHeaderHistory() {
   const currentId = getIdFromUrl();
   if (!currentId) {
     folderHistory.innerHTML = '<button>환영합니다</button>';

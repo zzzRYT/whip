@@ -1,29 +1,56 @@
+import { updateHeaderHistory } from './header.js';
+import { renderWorkspaces } from './sidebar.js';
 import { getIdFromUrl, getWorkspaces } from './utils.js';
 import { BlockNoteEditor } from '@blocknote/core';
 
 const workspaceNameElement = document.querySelector('.workspace-name');
 
-function getContents() {
+const editor = BlockNoteEditor.create();
+editor.mount(document.getElementById('editor'));
+
+export function getContents() {
   const currentId = getIdFromUrl();
   const workspaces = getWorkspaces();
   if (currentId) {
     const currentWorkspace = workspaces.find((ws) => ws.id === currentId);
-    console.log(currentWorkspace);
-    workspaceNameElement.textContent = currentWorkspace.name;
+    if (currentWorkspace) {
+      workspaceNameElement.value = currentWorkspace.name;
+      const content =
+        currentWorkspace.contents && currentWorkspace.contents.length > 0
+          ? currentWorkspace.contents
+          : [];
+      editor.replaceBlocks(editor.topLevelBlocks, content);
+      return currentWorkspace;
+    }
   }
+  workspaceNameElement.value = '';
+  editor.replaceBlocks(editor.topLevelBlocks, []);
+  return null;
 }
 
+export function workspaceTitleChangeHandler() {
+  const name = workspaceNameElement.value;
+  const workspace = getContents();
+  if (workspace) {
+    workspace.name = name ? name : '제목 없음';
+    const workspaces = getWorkspaces();
+    const newWorkspaces = workspaces.map((ws) =>
+      ws.id === workspace.id ? workspace : ws
+    );
+    localStorage.setItem('workspaces', JSON.stringify(newWorkspaces));
+    workspaceNameElement.value = workspace.name;
+    renderWorkspaces();
+    updateHeaderHistory();
+  }
+}
+workspaceNameElement.addEventListener('change', workspaceTitleChangeHandler);
+
 window.addEventListener('urlchange', getContents);
-
 getContents();
-
-const editor = BlockNoteEditor.create({
-  initialContent: [{ type: 'paragraph', content: '안녕하세요, BlockNote!' }],
-});
-editor.mount(document.getElementById('editor'));
 
 export function createButton(text, onClick) {
   const element = document.createElement('a');
+  element.className = 'block-side-menu';
   element.href = '#';
   element.text = text;
   element.style.margin = '10px';
@@ -36,9 +63,11 @@ export function createButton(text, onClick) {
   return element;
 }
 let element;
+
 editor.sideMenu.onUpdate((sideMenuState) => {
   if (!element) {
     element = document.createElement('div');
+    element.className = 'block-element';
     element.style.background = 'gray';
     element.style.position = 'absolute';
     element.style.padding = '10px';
@@ -81,4 +110,24 @@ editor.sideMenu.onUpdate((sideMenuState) => {
   } else {
     element.style.display = 'none';
   }
+});
+
+editor.onChange(() => {
+  // debounce 기능 추가
+  clearTimeout(editor.changeTimeout);
+  editor.changeTimeout = setTimeout(() => {
+    const currentId = getIdFromUrl();
+    if (!currentId) return;
+
+    const workspaces = getWorkspaces();
+    const currentWorkspace = workspaces.find((ws) => ws.id === currentId);
+
+    if (currentWorkspace) {
+      currentWorkspace.contents = editor.document;
+      const newWorkspaces = workspaces.map((ws) =>
+        ws.id === currentId ? currentWorkspace : ws
+      );
+      localStorage.setItem('workspaces', JSON.stringify(newWorkspaces));
+    }
+  }, 1000);
 });
