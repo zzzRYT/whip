@@ -28,6 +28,7 @@
 
   /* layers */
   --z-sidebar: 1000;
+  --z-picmo: 9999;
   --z-dropdown: 10150;
   --z-popover: 10160;
   --z-overlay: 10170;
