@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 사이드바에 showPage 전달
   initSidebar({
-    appState,
     ICONS,
     STORAGE_KEYS,
     SIDEBAR,

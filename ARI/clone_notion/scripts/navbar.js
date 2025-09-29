@@ -92,12 +92,12 @@ export function initNavbar({ appState, ICONS }) {
   // 타이틀 실시간 동기화
   titleInput?.addEventListener("input", () => {
     autoResize(titleInput);
-    const pid = getActivePageId();
-    const page = getPage(pid);
+    const pageId = getActivePageId();
+    const page = getPage(pageId);
     if (!page) return;
     const newTitle = (titleInput.value || "").trim() || "제목 없음";
     page.title = newTitle;
-    const node = document.querySelector(`.tree-node[data-page-id="${pid}"]`);
+    const node = document.querySelector(`.tree-node[data-page-id="${pageId}"]`);
     const titleEl = node?.querySelector(":scope > .tree-row .doc-title");
     if (titleEl) titleEl.textContent = newTitle;
     updateBreadcrumbsFromActive();
@@ -124,8 +124,8 @@ export function initNavbar({ appState, ICONS }) {
     );
     iconBtn.addEventListener("click", () => picker.toggle());
     picker.addEventListener("emoji:select", (e) => {
-      const pid = getActivePageId();
-      const page = getPage(pid);
+      const pageId = getActivePageId();
+      const page = getPage(pageId);
       const emoji = e.emoji;
 
       if (page) {
@@ -142,8 +142,8 @@ export function initNavbar({ appState, ICONS }) {
 
   // 초기 아이콘 렌더
   (function initIcon() {
-    const pid = getActivePageId();
-    const page = pid && getPage(pid);
+    const pageId = getActivePageId();
+    const page = pageId && getPage(pageId);
     if (page) {
       ensureIconFields(page);
       renderHeaderIcon(page.iconType, page.iconValue);

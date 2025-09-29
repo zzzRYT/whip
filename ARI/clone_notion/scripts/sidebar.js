@@ -1,5 +1,4 @@
 export function initSidebar({
-  appState,
   ICONS,
   STORAGE_KEYS,
   SIDEBAR,
@@ -13,7 +12,6 @@ export function initSidebar({
   const collapseBtn = document.querySelector("#collapseBtn");
   const expandBtn = document.querySelector("#expandBtn");
   const root = document.documentElement;
-  const sidebar = document.querySelector("#sidebar");
   const handle = document.querySelector("#resizeHandle");
   const docListRoot = document.getElementById("docListRoot");
   const addPageBtn = document.getElementById("actionAddPage");
@@ -193,8 +191,8 @@ export function initSidebar({
 
     // 행 클릭 → 페이지 표시
     if (btn.classList.contains("tree-row")) {
-      const pid = node.dataset.pageId;
-      if (pid) showPage(pid, node);
+      const pageId = node.dataset.pageId;
+      if (pageId) showPage(pageId, node);
       return;
     }
 
@@ -218,12 +216,12 @@ export function initSidebar({
         newTitleEl.textContent = newTitle;
         input.replaceWith(newTitleEl);
 
-        const pid = node.dataset.pageId;
-        const page = getPage(pid);
+        const pageId = node.dataset.pageId;
+        const page = getPage(pageId);
         if (page) page.title = newTitle;
 
         // 활성 페이지면 헤더도 동기화(네비바 input에 반영)
-        if (getActivePageId() === pid) {
+        if (getActivePageId() === pageId) {
           const titleInput = document.getElementById("titleInput");
           if (titleInput) {
             titleInput.value = newTitle;
@@ -236,7 +234,7 @@ export function initSidebar({
         const breadcrumbsEl = document.getElementById("breadcrumbs");
         if (breadcrumbsEl) {
           // showPage를 다시 호출하면 네비바 갱신 로직을 재사용
-          showPage(getActivePageId() || pid, node);
+          showPage(getActivePageId() || pageId, node);
         }
       };
 
