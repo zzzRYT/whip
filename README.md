@@ -4,6 +4,8 @@
 
 - HTML, CSS, Javascript만 사용해서 일주일에 한 번씩 클론코딩 진행하는 소규모 팀 스터디
 
+[사이트확인](https://zzzryt.github.io/whip/)
+
 ## 🙇‍♂️ 참여자
 
  <table>
@@ -21,6 +23,9 @@
 
 ## 구현 목표
 
-<img src="./public/zoomImage.png">
+1. Zoom 클론코딩
+2. Notion 클론코딩
 
 - 본인의 역량에 맞게 ZOOM UI를 구현
+   - HTML, CSS를 기본 베이스로
+   - 역량이 되는 사람은 js를 이용해 조금의 기능 구현
