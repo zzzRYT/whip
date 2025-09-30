@@ -1,3 +1,7 @@
+import { initNavbar } from "./navbar.js";
+import { initSidebar } from "./sidebar.js";
+import "./editor.js";
+
 // 공용 상수 & 상태
 const STORAGE_KEYS = { SIDEBAR_WIDTH: "notionClone:sidebar-width" };
 const ICONS = {
@@ -36,10 +40,6 @@ export function getActivePageId() {
 export function setActivePageId(id) {
   appState.activePageId = id;
 }
-
-// 네비바/사이드바 초기화
-import { initNavbar } from "./navbar.js";
-import { initSidebar } from "./sidebar.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // 네비바가 showPage 콜백을 리턴함
