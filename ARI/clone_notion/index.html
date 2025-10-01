@@ -129,10 +129,25 @@
           </div>
 
           <!-- Toolbar -->
-          <div id="toolbar" class="toolbar">Toolbar 영역</div>
+          <div id="toolbar" class="toolbar">
+            <button class="tbtn" data-cmd="bold"><b>B</b></button>
+            <button class="tbtn" data-cmd="italic"><i>i</i></button>
+            <button class="tbtn" data-cmd="underline"><u>U</u></button>
+            <span class="sep"></span>
+            <button class="tbtn" data-format="P">P</button>
+            <button class="tbtn" data-format="H1">H1</button>
+            <button class="tbtn" data-format="H2">H2</button>
+            <button class="tbtn" data-format="H3">H3</button>
+            <span class="sep"></span>
+            <button id="bulletsBtn" class="tbtn">• List</button>
+            <button id="numbersBtn" class="tbtn">1. List</button>
+            <button id="todoBtn" class="tbtn">☐ To-do</button>
+            <button id="codeBtn" class="tbtn">{ }</button>
+            <button id="quoteBtn" class="tbtn">❝ ❞</button>
+          </div>
 
           <!-- Editor -->
-          <div id="editor" class="editor">Editor 영역</div>
+          <div id="editor" class="editor" contenteditable="true"></div>
         </div>
       </main>
     </div>
